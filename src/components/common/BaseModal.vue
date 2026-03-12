@@ -191,7 +191,8 @@ const emit = defineEmits<{
 }>()
 
 const isSubmitting = ref(false)
-const formData = reactive<Record<string, unknown>>({})
+// Form data : typé en any pour rester flexible selon le champ (input, select, textarea, checkbox)
+const formData = reactive<Record<string, any>>({})
 
 // Initialize form data when form fields change
 watch(() => props.formFields, (fields) => {
