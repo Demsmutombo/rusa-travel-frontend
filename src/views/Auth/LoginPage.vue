@@ -203,7 +203,7 @@ const handleLogin = async () => {
         id: 1,
         name: demoAccount.email.split('@')[0],
         email: demoAccount.email,
-        role: demoAccount.role,
+        role: demoAccount.role as any,
         token: 'demo-token-' + demoAccount.role
       }, 'demo-token-' + demoAccount.role)
       

@@ -26,7 +26,7 @@
               to="/login"
               class="px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-gray-100 font-bold text-lg transition shadow-lg hover:shadow-xl"
             >
-              Espace client
+              Connexion
             </router-link>
           </div>
         </div>
@@ -171,7 +171,7 @@
             to="/login"
             class="px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-gray-100 font-bold text-lg transition shadow-lg hover:shadow-xl"
           >
-            Mon compte
+            Connexion
           </router-link>
         </div>
       </div>

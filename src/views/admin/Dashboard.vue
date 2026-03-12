@@ -307,20 +307,41 @@ const globalStats = reactive({
   totalUsers: '1,234',
   totalBookings: '8,567',
   totalBuses: '45',
+  totalAgencies: '12',
+  totalCommissions: '2,340,000 Fb',
   growth: '+18%'
 })
 
 const recentTransactions = ref([
-  { id: 1, description: 'Réservation Kinshasa-Lubumbashi', amount: 85000, status: 'completed' },
-  { id: 2, description: 'Achat billets groupe', amount: 125000, status: 'pending' },
-  { id: 3, description: 'Remboursement annulation', amount: -25000, status: 'completed' }
+  { id: 1, description: 'Réservation Kinshasa-Lubumbashi', amount: 85000, status: 'completed', time: '10:30', method: 'Mobile Money' },
+  { id: 2, description: 'Achat billets groupe', amount: 125000, status: 'pending', time: '09:15', method: 'Carte Bancaire' },
+  { id: 3, description: 'Remboursement annulation', amount: -25000, status: 'completed', time: '08:45', method: 'Mobile Money' }
 ])
 
 const systemIssues = ref([
-  { id: 1, title: 'Synchronisation base de données', description: 'Lenteur détectée', time: 'Il y a 2h', priority: 'high' },
-  { id: 2, title: 'Paiement en ligne', description: 'Gateway temporairement indisponible', time: 'Il y a 30min', priority: 'medium' },
-  { id: 3, title: 'Notifications email', description: 'Retard de 15min', time: 'Il y a 1h', priority: 'low' }
+  { id: 1, title: 'Synchronisation base de données', description: 'Lenteur détectée', time: 'Il y a 2h', priority: 'high', severity: 'high' },
+  { id: 2, title: 'Paiement en ligne', description: 'Gateway temporairement indisponible', time: 'Il y a 30min', priority: 'medium', severity: 'medium' },
+  { id: 3, title: 'Notifications email', description: 'Retard de 15min', time: 'Il y a 1h', priority: 'low', severity: 'low' }
 ])
+
+// Modal data
+const revenueDetails = ref({
+  title: 'Détails des Revenus',
+  data: [
+    { month: 'Janvier', revenue: 3500000 },
+    { month: 'Février', revenue: 4200000 },
+    { month: 'Mars', revenue: 3800000 }
+  ]
+})
+
+const bookingDetails = ref({
+  title: 'Statistiques des Réservations',
+  data: [
+    { day: 'Lundi', bookings: 145 },
+    { day: 'Mardi', bookings: 189 },
+    { day: 'Mercredi', bookings: 167 }
+  ]
+})
 
 // Chart refs
 const routeChart = ref(null)
@@ -329,11 +350,12 @@ const paymentChart = ref(null)
 const bookingChart = ref(null)
 
 // Utility functions
-const formatCurrency = (amount: number) => {
+const formatCurrency = (amount: string | number) => {
+  const numAmount = typeof amount === 'string' ? parseFloat(amount.replace(/[^0-9.-]/g, '')) : amount
   return new Intl.NumberFormat('fr-FR', {
     style: 'currency',
     currency: 'XOF'
-  }).format(amount)
+  }).format(numAmount)
 }
 
 // Modal handlers

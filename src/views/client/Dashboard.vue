@@ -250,7 +250,7 @@
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium text-gray-900">{{ notification.title }}</p>
               <p class="text-xs text-gray-500 mt-1">{{ notification.message }}</p>
-              <p class="text-xs text-gray-400 mt-1">{{ notification.date }}</p>
+              <p class="text-xs text-gray-400 mt-1">{{ notification.time }}</p>
             </div>
           </div>
         </div>
@@ -307,6 +307,39 @@ const frequencyChart = ref<HTMLCanvasElement>()
 const clientStats = ref({
   totalTrips: 47,
   activeBookings: 12,
+  totalSpent: '2,450,000 Fb',
+  savedAmount: '125,000 Fb',
+  loyaltyPoints: 850,
+  nextTrip: 'Kinshasa - Lubumbashi',
+  totalSavings: '125,000 Fb'
+})
+
+const favoriteDestinations = ref([
+  { id: 1, name: 'Kinshasa', city: 'Kinshasa', trips: 12, percentage: 45, frequency: '45%' },
+  { id: 2, name: 'Lubumbashi', city: 'Lubumbashi', trips: 8, percentage: 30, frequency: '30%' },
+  { id: 3, name: 'Goma', city: 'Goma', trips: 4, percentage: 25, frequency: '25%' }
+])
+
+const recentBookings = ref([
+  { id: 1, route: 'Kinshasa-Lubumbashi', description: 'Voyage aller simple', time: '10:30', amount: 85000, status: 'confirmed', date: '2024-03-12', price: 85000 },
+  { id: 2, route: 'Lubumbashi-Kinshasa', description: 'Voyage retour', time: '14:15', amount: 85000, status: 'pending', date: '2024-03-15', price: 85000 },
+  { id: 3, route: 'Kinshasa-Goma', description: 'Voyage aller simple', time: '08:00', amount: 65000, status: 'completed', date: '2024-03-10', price: 65000 }
+])
+
+const travelNotifications = ref([
+  { id: 1, title: 'Confirmation de réservation', description: 'Votre voyage Kinshasa-Lubumbashi est confirmé', type: 'success', time: 'Il y a 2h', message: 'Réservation confirmée avec succès', date: '2024-03-12' },
+  { id: 2, title: 'Rappel de départ', description: 'Votre bus part dans 2 heures', type: 'warning', time: 'Il y a 30min', message: 'Présentez-vous 30min avant le départ', date: '2024-03-12' },
+  { id: 3, title: 'Promotion spéciale', description: '-20% sur tous les voyages cette semaine', type: 'info', time: 'Il y a 1 jour', message: 'Profitez de notre offre spéciale', date: '2024-03-11' }
+])
+
+// Utility functions
+const formatCurrency = (amount: string | number) => {
+  const numAmount = typeof amount === 'string' ? parseFloat(amount.replace(/[^0-9.-]/g, '')) : amount
+  return new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'XOF'
+  }).format(numAmount)
+}
   totalSpent: 2850000,
   loyaltyPoints: 1850,
   monthlyTrips: 8,

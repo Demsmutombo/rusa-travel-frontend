@@ -184,7 +184,7 @@ const handleLogin = async () => {
         router.replace('/admin/dashboard')
         break
       case 'staff':
-        router.replace('/staff/dashboard')
+        router.replace('/admin/dashboard')
         break
       case 'manager':
         router.replace('/manager/dashboard')
@@ -196,7 +196,7 @@ const handleLogin = async () => {
         router.replace('/client/dashboard')
         break
       default:
-        router.replace('/home')
+        router.replace('/')
     }
 
   } catch (error) {

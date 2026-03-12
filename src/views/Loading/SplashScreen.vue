@@ -25,7 +25,7 @@ const router = useRouter()
 onMounted(() => {
   setTimeout(() => {
     router.push('/home')
-  }, 4000)
+  }, 2000)
 })
 
 // Réinitialiser les styles lors du démontage
