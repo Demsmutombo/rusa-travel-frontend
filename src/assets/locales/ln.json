@@ -1,0 +1,85 @@
+{
+  "common": {
+    "search": "Koluka",
+    "book": "Kofanda",
+    "cancel": "Kolongola",
+    "confirm": "Kondima",
+    "loading": "Ekozala...",
+    "save": "Kobomba",
+    "delete": "Kolongola",
+    "edit": "Kobongola",
+    "back": "Kozonga",
+    "next": "Okati",
+    "previous": "Ya liboso",
+    "close": "Kofunga",
+    "yes": "Iyo",
+    "no": "Te",
+    "currency": "CDF",
+    "from": "Esuka",
+    "to": "Esika",
+    "date": "Mokolo",
+    "time": "Ngonga",
+    "passengers": "Bato",
+    "price": "Ntalo",
+    "duration": "Ngonga",
+    "available": "Ezali",
+    "unavailable": "Ezaleli te"
+  },
+  "nav": {
+    "home": "Esika",
+    "search": "Koluka",
+    "myTickets": "Bilé na ngai",
+    "myBookings": "Makanda na ngai",
+    "profile": "Profil na ngai",
+    "history": "Mokolo",
+    "signIn": "Kokota",
+    "signOut": "Kobima"
+  },
+  "home": {
+    "heroTitle": "Sala mobembo na kimia libota RDC",
+    "heroSubtitle": "Fanda bilé ya bus na ligne. Pétélé, noki, malamu. Lifuti M-Pesa, Airtel Money, Orange Money.",
+    "popularRoutes": "Bango ya moto",
+    "howItWorks": "Ekosalema ndenge nini",
+    "step1Title": "Koluka mobembo na yo",
+    "step1Desc": "Tonga mboka esuka, esika mpe mokolo.",
+    "step2Title": "Pona bus na yo",
+    "step2Desc": "Talinga ngonga, ntalo mpe makambo.",
+    "step3Title": "Fanda na 2 clics",
+    "step3Desc": "Pona siège na yo mpe futa na ligne.",
+    "step4Title": "Sala mobembo na kimia",
+    "step4Desc": "Zwa bilé na yo na QR code.",
+    "testimonials": "Bato balobaka nini",
+    "partners": "Bakamwisi na biso",
+    "downloadApp": "Télécharger application",
+    "downloadAppDesc": "Fanda bilé na smartphone na yo. Ezali na iOS mpe Android."
+  },
+  "search": {
+    "title": "Koluka mobembo",
+    "placeholderFrom": "Mboka esuka",
+    "placeholderTo": "Mboka ekɔta",
+    "onePassenger": "Moto moko",
+    "passengers": "Bato {count}",
+    "noResults": "Mobembo ezali te."
+  },
+  "results": {
+    "tripsFound": "Mobembo {count} ezali",
+    "seatsLeft": "Sięge {count} kaka",
+    "viewDetails": "Tala",
+    "select": "Pona"
+  },
+  "payment": {
+    "mpesa": "M-Pesa",
+    "airtel": "Airtel Money",
+    "orange": "Orange Money",
+    "card": "Carte bancaire",
+    "payAmount": "Futa {amount} CDF"
+  },
+  "carrier": {
+    "dashboard": "Tableau de bord",
+    "totalBuses": "Bus total",
+    "buses": "Bus",
+    "trips": "Mobembo",
+    "bookings": "Makanda",
+    "statistics": "Statistiques"
+  }
+}

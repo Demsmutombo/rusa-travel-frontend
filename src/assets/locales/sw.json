@@ -1,0 +1,85 @@
+{
+  "common": {
+    "search": "Tafuta",
+    "book": "Rejesha",
+    "cancel": "Ghairi",
+    "confirm": "Thibitisha",
+    "loading": "Inapakia...",
+    "save": "Hifadhi",
+    "delete": "Futa",
+    "edit": "Hariri",
+    "back": "Rudi",
+    "next": "Ifuatayo",
+    "previous": "Iliyotangulia",
+    "close": "Funga",
+    "yes": "Ndiyo",
+    "no": "Hapana",
+    "currency": "CDF",
+    "from": "Kutoka",
+    "to": "Kwenda",
+    "date": "Tarehe",
+    "time": "Saa",
+    "passengers": "Abiria",
+    "price": "Bei",
+    "duration": "Muda",
+    "available": "Inapatikana",
+    "unavailable": "Haipatikani"
+  },
+  "nav": {
+    "home": "Nyumbani",
+    "search": "Tafuta",
+    "myTickets": "Tikiti zangu",
+    "myBookings": "Matengenezo yangu",
+    "profile": "Wasifu wangu",
+    "history": "Historia",
+    "signIn": "Ingia",
+    "signOut": "Toka"
+  },
+  "home": {
+    "heroTitle": "Safiri kwa amani kupitia DRC",
+    "heroSubtitle": "Rejesha tikiti za basi mtandaoni. Rahisi, haraka, salama. Malipo M-Pesa, Airtel Money, Orange Money.",
+    "popularRoutes": "Njia maarufu",
+    "howItWorks": "Inavyofanya kazi",
+    "step1Title": "Tafuta safari yako",
+    "step1Desc": "Taja mji wa kuanzia, wa kuendelea na tarehe.",
+    "step2Title": "Chagua basi yako",
+    "step2Desc": "Linganisha ratiba, bei na kampuni.",
+    "step3Title": "Rejesha kwa vitone 2",
+    "step3Desc": "Chagua kiti chako na lipa mtandaoni.",
+    "step4Title": "Safiri kwa amani",
+    "step4Desc": "Pokea tikiti yako na QR code.",
+    "testimonials": "Watalii wanasema nini",
+    "partners": "Washirika wetu",
+    "downloadApp": "Pakua programu",
+    "downloadAppDesc": "Rejesha tikiti kutoka simu yako. Inapatikana iOS na Android."
+  },
+  "search": {
+    "title": "Tafuta safari",
+    "placeholderFrom": "Mji wa kuanzia",
+    "placeholderTo": "Mji wa kuendelea",
+    "onePassenger": "Abiria 1",
+    "passengers": "Abiria {count}",
+    "noResults": "Hakuna safari zilizopatikana."
+  },
+  "results": {
+    "tripsFound": "Safari {count} zilizopatikana",
+    "seatsLeft": "Viti {count} tu",
+    "viewDetails": "Tazama",
+    "select": "Chagua"
+  },
+  "payment": {
+    "mpesa": "M-Pesa",
+    "airtel": "Airtel Money",
+    "orange": "Orange Money",
+    "card": "Kadi ya benki",
+    "payAmount": "Lipa {amount} CDF"
+  },
+  "carrier": {
+    "dashboard": "Dashibodi",
+    "totalBuses": "Basi jumla",
+    "buses": "Basi",
+    "trips": "Safari",
+    "bookings": "Matengenezo",
+    "statistics": "Takwimu"
+  }
+}
