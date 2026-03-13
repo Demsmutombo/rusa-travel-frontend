@@ -184,10 +184,10 @@
           <router-link to="/destination/kinshasa" class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 block">
             <div class="h-64 relative overflow-hidden">
               <img 
-                src="https://picsum.photos/seed/kinshasa-bus/400/300.jpg" 
-                alt="Bus de transport Kinshasa" 
+                src="https://picsum.photos/seed/kinshasa-city/320/256.jpg" 
+                alt="Ville de Kinshasa" 
                 class="w-full h-full object-cover"
-                onerror="this.style.display='none'"
+                loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
               <div class="absolute bottom-6 left-6 text-white">
@@ -209,10 +209,10 @@
           <router-link to="/destination/lubumbashi" class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 block">
             <div class="h-64 relative overflow-hidden">
               <img 
-                src="https://picsum.photos/seed/lubumbashi-transport/400/300.jpg" 
-                alt="Transport routier Lubumbashi" 
+                src="https://picsum.photos/seed/lubumbashi-city/320/256.jpg" 
+                alt="Ville de Lubumbashi" 
                 class="w-full h-full object-cover"
-                onerror="this.style.display='none'"
+                loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
               <div class="absolute bottom-6 left-6 text-white">
@@ -234,10 +234,10 @@
           <router-link to="/destination/goma" class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 block">
             <div class="h-64 relative overflow-hidden">
               <img 
-                src="https://picsum.photos/seed/goma-voyage/400/300.jpg" 
-                alt="Voyage en bus vers Goma" 
+                src="https://picsum.photos/seed/goma-lake/320/256.jpg" 
+                alt="Ville de Goma" 
                 class="w-full h-full object-cover"
-                onerror="this.style.display='none'"
+                loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
               <div class="absolute bottom-6 left-6 text-white">
@@ -259,10 +259,10 @@
           <router-link to="/destination/kisangani" class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 block">
             <div class="h-64 relative overflow-hidden">
               <img 
-                src="https://picsum.photos/seed/kisangani-bus/400/300.jpg" 
-                alt="Transport de voyageurs Kisangani" 
+                src="https://picsum.photos/seed/kisangani-river/320/256.jpg" 
+                alt="Ville de Kisangani" 
                 class="w-full h-full object-cover"
-                onerror="this.style.display='none'"
+                loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
               <div class="absolute bottom-6 left-6 text-white">

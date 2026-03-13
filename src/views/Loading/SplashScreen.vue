@@ -24,7 +24,7 @@ const router = useRouter()
 
 onMounted(() => {
   setTimeout(() => {
-    router.push('/home')
+    router.push('/')
   }, 2000)
 })
 

@@ -1,11 +1,11 @@
 <template>
   <ThemeProvider>
     <div>
-      <!-- Loading Screen pour le démarrage -->
+      <!-- Loading Screen simple -->
       <LoadingScreen 
-        :is-loading="loadingStore.isLoading"
-        :loading-text="loadingStore.loadingText"
-        :loading-subtext="loadingStore.loadingSubtext"
+        :is-loading="isLoading"
+        loading-text="Rusa Travel"
+        loading-subtext="Chargement..."
       />
       
       <!-- Main App Content -->
@@ -15,31 +15,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import ThemeProvider from '@/components/layout/ThemeProvider.vue'
 import LoadingScreen from '@/components/common/LoadingScreen.vue'
-import { useLoadingStore } from '@/stores/loading'
 
 const router = useRouter()
-const loadingStore = useLoadingStore()
+const isLoading = ref(true)
 
 onMounted(() => {
-  console.log('Application Rusa Travel initialisée')
-  
-  // Vérifier si c'est le premier chargement
-  const hasVisited = sessionStorage.getItem('rusa-travel-visited')
-  
-  if (!hasVisited) {
-    // Premier chargement - afficher le splash screen
-    sessionStorage.setItem('rusa-travel-visited', 'true')
-    router.push('/splash')
-  } else {
-    // Pas le premier chargement - aller directement à l'accueil
+  // Logo simple pendant 2 secondes puis redirection vers l'accueil
+  setTimeout(() => {
+    isLoading.value = false
     router.push('/')
-  }
-  
-  // Afficher l'écran de chargement
-  loadingStore.initializeApp()
+  }, 2000)
 })
 </script>

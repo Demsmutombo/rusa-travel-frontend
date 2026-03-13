@@ -4,29 +4,29 @@
     <AppHeader />
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">
-              {{ destination.name }}
-            </h1>
-            <p class="text-xl text-blue-100 mb-8">
-              {{ destination.description }}
-            </p>
-            <div class="flex items-center justify-center space-x-6">
-              <div class="text-center">
-                <p class="text-3xl font-bold text-yellow-300">{{ destination.price }} Fb</p>
-                <p class="text-blue-100">À partir de</p>
-              </div>
-              <div class="text-center">
-                <p class="text-3xl font-bold text-yellow-300">{{ destination.duration }}</p>
-                <p class="text-blue-100">Durée du trajet</p>
-              </div>
-              <div class="text-center">
-                <p class="text-3xl font-bold text-yellow-300">{{ destination.frequency }}</p>
-                <p class="text-blue-100">Départs par jour</p>
-              </div>
+    <section class="relative bg-gradient-to-br from-blue-600 to-blue-800 text-white py-12 sm:py-16 lg:py-20">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">
+            {{ destination.name }}
+          </h1>
+          <p class="text-lg sm:text-xl text-blue-100 mb-6 lg:mb-8">
+            {{ destination.description }}
+          </p>
+          
+          <!-- Stats Grid - Responsive -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 mb-8">
+            <div class="text-center">
+              <p class="text-2xl sm:text-3xl font-bold text-yellow-300">{{ destination.price }} FC</p>
+              <p class="text-sm sm:text-base text-blue-100">À partir de</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl sm:text-3xl font-bold text-yellow-300">{{ destination.duration }}</p>
+              <p class="text-sm sm:text-base text-blue-100">Durée du trajet</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl sm:text-3xl font-bold text-yellow-300">{{ destination.frequency }}</p>
+              <p class="text-sm sm:text-base text-blue-100">Départs par jour</p>
             </div>
           </div>
         </div>
@@ -39,62 +39,69 @@
     </section>
 
     <!-- Destination Details -->
-    <section class="py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-6xl mx-auto">
-          <div class="grid md:grid-cols-3 gap-8">
+    <section class="py-8 sm:py-12 lg:py-16">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl lg:max-w-7xl mx-auto">
+          <!-- Grid Layout Responsive -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             <!-- Main Content -->
-            <div class="md:col-span-2 space-y-8">
+            <div class="lg:col-span-2 space-y-6 lg:space-y-8">
               <!-- Description -->
-              <div class="bg-white rounded-lg shadow-lg p-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">À propos de {{ destination.name }}</h2>
-                <div class="prose prose-lg text-gray-600">
+              <div class="bg-white rounded-lg shadow-lg p-6 lg:p-8">
+                <h2 class="text-xl lg:text-2xl font-bold text-gray-900 mb-4 lg:mb-6">À propos de {{ destination.name }}</h2>
+                <div class="prose prose-sm lg:prose-lg text-gray-600">
                   <p class="mb-4">{{ destination.fullDescription }}</p>
                   <p class="mb-4">{{ destination.additionalInfo }}</p>
                 </div>
               </div>
 
               <!-- Services -->
-              <div class="bg-white rounded-lg shadow-lg p-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Services inclus</h2>
-                <div class="grid grid-cols-2 gap-4">
-                  <div v-for="service in destination.services" :key="service.name" class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                      <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="bg-white rounded-lg shadow-lg p-6 lg:p-8">
+                <h2 class="text-xl lg:text-2xl font-bold text-gray-900 mb-4 lg:mb-6">Services inclus</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+                  <div v-for="service in destination.services" :key="service.name" class="flex items-center space-x-2 lg:space-x-3">
+                    <div class="w-8 h-8 lg:w-10 lg:h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <svg class="w-4 h-4 lg:w-5 lg:h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <span class="text-gray-700">{{ service.name }}</span>
+                    <span class="text-sm lg:text-base text-gray-700">{{ service.name }}</span>
                   </div>
                 </div>
               </div>
 
               <!-- Schedule -->
-              <div class="bg-white rounded-lg shadow-lg p-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Horaires de départ</h2>
-                <div class="space-y-3">
-                  <div v-for="schedule in destination.schedules" :key="schedule.time" class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                    <span class="font-medium text-gray-900">{{ schedule.time }}</span>
-                    <span class="text-gray-600">{{ schedule.frequency }}</span>
-                    <span class="text-blue-600 font-medium">{{ schedule.price }} Fb</span>
+              <div class="bg-white rounded-lg shadow-lg p-6 lg:p-8">
+                <h2 class="text-xl lg:text-2xl font-bold text-gray-900 mb-4 lg:mb-6">Horaires de départ</h2>
+                <div class="space-y-2 lg:space-y-3">
+                  <div v-for="schedule in destination.schedules" :key="schedule.time" class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 bg-gray-50 rounded-lg">
+                    <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4">
+                      <div>
+                        <span class="text-lg lg:text-xl font-bold text-gray-900">{{ schedule.time }}</span>
+                        <span class="text-sm sm:text-base text-gray-600 block sm:inline sm:ml-2">{{ schedule.frequency }}</span>
+                      </div>
+                      <div class="text-right sm:text-left">
+                        <span class="text-lg lg:text-xl font-bold text-blue-600">{{ schedule.price }} FC</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Sidebar -->
-            <div class="space-y-8">
+            <div class="space-y-6 lg:space-y-8">
               <!-- Booking Card -->
-              <div class="bg-white rounded-lg shadow-lg p-6 sticky top-6">
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Réserver votre trajet</h3>
+              <div class="bg-white rounded-lg shadow-lg p-4 lg:p-6 sticky top-6">
+                <h3 class="text-lg lg:text-xl font-bold text-gray-900 mb-4">Réserver votre trajet</h3>
                 
-                <div class="space-y-4">
+                <div class="space-y-3 lg:space-y-4">
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Date de départ</label>
                     <input
                       v-model="bookingData.date"
                       type="date"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      class="w-full px-3 lg:px-4 py-2 lg:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm lg:text-base"
                     />
                   </div>
                   
@@ -102,7 +109,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Heure de départ</label>
                     <select
                       v-model="bookingData.time"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      class="w-full px-3 lg:px-4 py-2 lg:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm lg:text-base"
                     >
                       <option value="">Sélectionnez une heure</option>
                       <option v-for="schedule in destination.schedules" :key="schedule.time" :value="schedule.time">
@@ -118,20 +125,20 @@
                       type="number"
                       min="1"
                       max="10"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      class="w-full px-3 lg:px-4 py-2 lg:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm lg:text-base"
                     />
                   </div>
                 </div>
                 
-                <div class="mt-6 pt-6 border-t border-gray-200">
-                  <div class="flex justify-between items-center mb-4">
-                    <span class="text-gray-600">Total estimé:</span>
-                    <span class="text-2xl font-bold text-blue-600">{{ totalPrice }} Fb</span>
+                <div class="mt-4 lg:mt-6 pt-4 lg:pt-6 border-t border-gray-200">
+                  <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+                    <span class="text-gray-600 text-sm lg:text-base">Total estimé:</span>
+                    <span class="text-xl lg:text-2xl font-bold text-blue-600">{{ totalPrice }} FC</span>
                   </div>
                   
                   <button
                     @click="handleBooking"
-                    class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 font-medium transition"
+                    class="w-full bg-blue-600 text-white py-2 lg:py-3 px-4 lg:px-6 rounded-lg hover:bg-blue-700 font-medium transition text-sm lg:text-base"
                   >
                     Réserver maintenant
                   </button>
@@ -139,20 +146,20 @@
               </div>
 
               <!-- Contact Info -->
-              <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Besoin d'aide?</h3>
-                <div class="space-y-3">
-                  <div class="flex items-center space-x-3">
-                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="bg-white rounded-lg shadow-lg p-4 lg:p-6">
+                <h3 class="text-lg lg:text-xl font-bold text-gray-900 mb-4">Besoin d'aide?</h3>
+                <div class="space-y-3 lg:space-y-4">
+                  <div class="flex items-center space-x-2 lg:space-x-3">
+                    <svg class="w-4 h-4 lg:w-5 lg:h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
-                    <span class="text-gray-700">+243 123 456 789</span>
+                    <span class="text-sm lg:text-base text-gray-700">+243 123 456 789</span>
                   </div>
-                  <div class="flex items-center space-x-3">
-                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="flex items-center space-x-2 lg:space-x-3">
+                    <svg class="w-4 h-4 lg:w-5 lg:h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <span class="text-gray-700">info@rusatravel.cd</span>
+                    <span class="text-sm lg:text-base text-gray-700">info@rusatravel.cd</span>
                   </div>
                 </div>
               </div>
@@ -163,17 +170,27 @@
     </section>
 
     <!-- Related Destinations -->
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-6xl mx-auto">
-          <h2 class="text-3xl font-bold text-center mb-12">Autres destinations populaires</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section class="py-12 sm:py-16 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl lg:max-w-7xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 lg:mb-12">Autres destinations populaires</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div v-for="related in relatedDestinations" :key="related.id" @click="goToDestination(related.id)" class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition cursor-pointer">
-              <div class="h-32" :class="related.colorClass"></div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold mb-2">{{ related.name }}</h3>
-                <p class="text-gray-600 mb-4">{{ related.description }}</p>
-                <p class="text-lg font-bold text-blue-600">À partir de {{ related.price }} Fb</p>
+              <div class="h-24 sm:h-32 lg:h-40 relative overflow-hidden">
+                <img 
+                  :src="`https://picsum.photos/seed/${related.id}-city/320/300.jpg`" 
+                  :alt="`Image de ${related.name}`"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                  <h3 class="text-lg sm:text-xl font-bold">{{ related.name }}</h3>
+                </div>
+              </div>
+              <div class="p-4 sm:p-6">
+                <p class="text-sm sm:text-base text-gray-600 mb-3 lg:mb-4">{{ related.description }}</p>
+                <p class="text-base sm:text-lg font-bold text-blue-600">À partir de {{ related.price }} FC</p>
               </div>
             </div>
           </div>
@@ -182,51 +199,54 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-      <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-4 gap-8">
+    <footer class="bg-gray-900 text-white py-8 sm:py-12">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           <div>
             <div class="flex items-center mb-4">
-              <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3 overflow-hidden">
+              <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center mr-3 overflow-hidden">
                 <img 
                   src="/images/logo/auth-logo (2).png" 
                   alt="Rusa Travel" 
                   class="w-full h-full object-contain"
                 />
               </div>
-              <span class="text-xl font-bold">Rusa Travel</span>
+              <span class="text-lg sm:text-xl font-bold">Rusa Travel</span>
             </div>
-            <p class="text-gray-400">Votre partenaire de confiance pour tous vos voyages en RDC</p>
+            <p class="text-sm sm:text-base text-gray-400">Votre partenaire de confiance pour tous vos voyages en RDC</p>
           </div>
+          
           <div>
-            <h3 class="font-bold mb-4">Liens rapides</h3>
-            <ul class="space-y-2 text-gray-400">
-              <li><router-link to="/about" class="hover:text-white transition">À propos</router-link></li>
-              <li><router-link to="/search" class="hover:text-white transition">Destinations</router-link></li>
-              <li><router-link to="/search" class="hover:text-white transition">Tarifs</router-link></li>
-              <li><router-link to="/contact" class="hover:text-white transition">Contact</router-link></li>
+            <h3 class="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Liens rapides</h3>
+            <ul class="space-y-1 sm:space-y-2 text-gray-400 text-sm sm:text-base">
+              <li><router-link to="/about" class="hover:text-white transition block py-1">À propos</router-link></li>
+              <li><router-link to="/search" class="hover:text-white transition block py-1">Destinations</router-link></li>
+              <li><router-link to="/search" class="hover:text-white transition block py-1">Tarifs</router-link></li>
+              <li><router-link to="/contact" class="hover:text-white transition block py-1">Contact</router-link></li>
             </ul>
           </div>
+          
           <div>
-            <h3 class="font-bold mb-4">Services</h3>
-            <ul class="space-y-2 text-gray-400">
-              <li><router-link to="/search" class="hover:text-white transition">Réservations</router-link></li>
-              <li><router-link to="/login" class="hover:text-white transition">Transport de marchandises</router-link></li>
-              <li><router-link to="/login" class="hover:text-white transition">Services entreprises</router-link></li>
-              <li><router-link to="/contact" class="hover:text-white transition">Assistance 24/7</router-link></li>
+            <h3 class="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Services</h3>
+            <ul class="space-y-1 sm:space-y-2 text-gray-400 text-sm sm:text-base">
+              <li><router-link to="/search" class="hover:text-white transition block py-1">Réservations</router-link></li>
+              <li><router-link to="/login" class="hover:text-white transition block py-1">Transport de marchandises</router-link></li>
+              <li><router-link to="/login" class="hover:text-white transition block py-1">Services entreprises</router-link></li>
+              <li><router-link to="/contact" class="hover:text-white transition block py-1">Assistance 24/7</router-link></li>
             </ul>
           </div>
+          
           <div>
-            <h3 class="font-bold mb-4">Contact</h3>
-            <ul class="space-y-2 text-gray-400">
-              <li>+243 123 456 789</li>
-              <li>info@rusatravel.cd</li>
-              <li>Kinshasa, RDC</li>
+            <h3 class="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Contact</h3>
+            <ul class="space-y-1 sm:space-y-2 text-gray-400 text-sm sm:text-base">
+              <li class="py-1">+243 123 456 789</li>
+              <li class="py-1">info@rusatravel.cd</li>
+              <li class="py-1">Kinshasa, RDC</li>
             </ul>
           </div>
         </div>
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Rusa Travel. Tous droits réservés.</p>
+        <div class="border-t border-gray-800 mt-6 lg:mt-8 pt-6 lg:pt-8 text-center text-gray-400">
+          <p class="text-sm sm:text-base">&copy; 2024 Rusa Travel. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
