@@ -5,7 +5,7 @@
       <img 
         src="/images/logo/auth-logo (2).png" 
         alt="Rusa Travel" 
-        class="w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 object-contain"
+        class="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain"
       />
     </div>
   </div>

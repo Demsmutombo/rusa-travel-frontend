@@ -12,7 +12,7 @@
         <div class="relative inline-block">
           <!-- Logo Image -->
           <img 
-            src="/images/logo/auth-logo (2).png" 
+            src="/images/logo/auth-logo.svg" 
             alt="Rusa Travel" 
             class="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 object-contain animate-pulse"
           />

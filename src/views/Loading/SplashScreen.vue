@@ -2,9 +2,9 @@
   <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: white; display: flex !important; align-items: center !important; justify-content: center !important; z-index: 99999 !important; margin: 0 !important; padding: 0 !important;">
     <div style="text-align: center;">
       <img 
-        src="/images/logo/auth-logo.svg" 
+        src="/images/logo/auth-logo (2).png" 
         alt="Rusa Travel" 
-        style="width: 128px; height: 128px; margin-bottom: 32px;"
+        style="width: 256px; height: 256px; margin-bottom: 32px;"
       />
       <div style="display: flex !important; justify-content: center; gap: 8px; margin-bottom: 16px;">
         <div style="width: 8px; height: 8px; background: #3B82F6; border-radius: 50%; animation: bounce 1.4s infinite !important;"></div>

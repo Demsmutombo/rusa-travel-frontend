@@ -1,6 +1,6 @@
 # Rusa Travel - Plateforme de Transport en République Démocratique du Congo
 
-![Rusa Travel Logo](/images/logo/auth-logo (2).png)
+![Rusa Travel Logo](/images/logo/auth-logo.svg)
 
 ## 🚌 Description
 

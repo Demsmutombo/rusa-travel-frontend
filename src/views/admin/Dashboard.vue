@@ -5,7 +5,7 @@
       <!-- Logo -->
       <div class="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden shadow-md">
         <img 
-          src="/images/logo/auth-logo (2).png" 
+          src="/images/logo/auth-logo.svg" 
           alt="Rusa Travel" 
           class="w-full h-full object-contain"
         />

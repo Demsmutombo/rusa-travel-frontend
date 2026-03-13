@@ -11,7 +11,7 @@
         <div class="flex items-center">
           <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3 overflow-hidden">
             <img 
-              src="/images/logo/auth-logo (2).png" 
+              src="/images/logo/auth-logo.svg" 
               alt="Rusa Travel" 
               class="w-full h-full object-contain"
             />

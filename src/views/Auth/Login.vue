@@ -4,9 +4,9 @@
       <!-- Logo -->
       <div class="text-center mb-8">
         <img
-          src="/images/logo/auth-logo.svg"
+          src="/images/logo/auth-logo (2).png"
           alt="Rusa Travel"
-          class="mx-auto h-16 w-auto mb-6"
+          class="mx-auto h-24 w-auto mb-6"
         />
         <h1 class="text-2xl font-bold text-gray-900 mb-2">
           Bienvenue sur Rusa Travel

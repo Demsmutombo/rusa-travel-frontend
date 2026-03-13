@@ -7,6 +7,14 @@ const router = createRouter({
     return savedPosition || { left: 0, top: 0 }
   },
   routes: [
+    // Page de splash screen - page de démarrage avec logo
+    {
+      path: '/splash',
+      name: 'Splash',
+      component: () => import('../views/Loading/SplashScreen.vue'),
+      meta: { public: true, title: 'Rusa Travel - Chargement' }
+    },
+
     // Page d'accueil publique - route principale
     {
       path: '/',
@@ -21,6 +29,38 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/Auth/Login.vue'),
       meta: { public: true, title: 'Connexion - Rusa Travel' }
+    },
+
+    // Page À propos
+    {
+      path: '/about',
+      name: 'About',
+      component: () => import('../views/About/AboutPage.vue'),
+      meta: { public: true, title: 'À propos - Rusa Travel' }
+    },
+
+    // Page Contact
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: () => import('../views/Contact/ContactPage.vue'),
+      meta: { public: true, title: 'Contact - Rusa Travel' }
+    },
+
+    // Page d'inscription
+    {
+      path: '/register',
+      name: 'Register',
+      component: () => import('../views/Auth/RegisterPage.vue'),
+      meta: { public: true, title: 'Inscription - Rusa Travel' }
+    },
+
+    // Détails des destinations
+    {
+      path: '/destination/:id',
+      name: 'DestinationDetail',
+      component: () => import('../views/Destination/DestinationDetailPage.vue'),
+      meta: { public: true, title: 'Destination - Rusa Travel' }
     },
 
     // Recherche publique (landing recherche)

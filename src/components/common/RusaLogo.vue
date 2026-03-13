@@ -9,7 +9,7 @@
     :style="customStyle"
   >
     <img 
-      src="/images/logo/auth-logo (2).png" 
+      src="/images/logo/auth-logo.svg" 
       alt="Rusa Travel" 
       class="w-full h-full object-contain"
     />
