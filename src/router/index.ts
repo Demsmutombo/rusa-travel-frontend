@@ -220,7 +220,6 @@ const router = createRouter({
         { path: 'routes', name: 'AdminRoutes', component: () => import('../views/admin/Routes.vue'), meta: { title: 'Gestion des routes' } },
         { path: 'finance', name: 'AdminFinance', component: () => import('../views/admin/Finance.vue'), meta: { title: 'Dashboard Financier' } },
         { path: 'notifications', name: 'AdminNotifications', component: () => import('../views/admin/Notifications.vue'), meta: { title: 'Notifications' } },
-        { path: 'test-mobile', name: 'AdminTestMobile', component: () => import('../views/admin/TestMobile.vue'), meta: { title: 'Test Mobile' } },
         { path: 'transactions', name: 'AdminTransactions', component: () => import('../views/admin/Transactions.vue'), meta: { title: 'Transactions' } },
         { path: 'disputes', name: 'AdminDisputes', component: () => import('../views/admin/Disputes.vue'), meta: { title: 'Litiges' } }
       ]

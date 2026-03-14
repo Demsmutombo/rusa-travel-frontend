@@ -165,7 +165,6 @@ const pageTitle = computed(() => {
     'AdminRoutes': 'Routes',
     'AdminFinance': 'Finance',
     'AdminNotifications': 'Notifications',
-    'AdminTestMobile': 'Test Mobile',
     'AdminTransactions': 'Transactions',
     'AdminDisputes': 'Litiges',
     'AdminSuperAdminDashboard': 'Super Admin Dashboard',
