@@ -15,4 +15,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  build: {
+    rollupOptions: {
+      external: (id) => {
+        // Exclure temporairement le fichier Settings.vue corrompu
+        return id.includes('Settings.vue')
+      }
+    }
+  }
 })

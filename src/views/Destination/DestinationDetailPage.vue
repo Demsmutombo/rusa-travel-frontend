@@ -309,9 +309,6 @@ interface Destination {
   schedules: Schedule[]
 }
 
-const route = useRoute()
-const router = useRouter()
-
 const bookingData = ref({
   date: '',
   time: '',

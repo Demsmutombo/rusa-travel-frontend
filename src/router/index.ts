@@ -80,7 +80,13 @@ const router = createRouter({
       component: () => import('../views/Auth/LoginPage_Ultra.vue'),
       meta: { public: true, title: 'Ultra Test - Rusa Travel' }
     },
-
+    {
+      path: '/documentation',
+      name: 'Documentation',
+      component: () => import('../views/Documentation/GuidePage.vue'),
+      meta: { public: true, title: 'Documentation - Rusa Travel' }
+    },
+    
     // Page À propos
     {
       path: '/about',

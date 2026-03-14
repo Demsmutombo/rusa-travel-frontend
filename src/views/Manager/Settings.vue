@@ -380,18 +380,6 @@ const saveProfile = () => {
   alert('Profil mis à jour avec succès!')
 }
 </script>
-                type="tel"
-                value="+243 123 456 789"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Fuseau horaire</label>
-              <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Africa/Kinshasa (UTC+1)</option>
-                <option>Africa/Lagos (UTC+1)</option>
-                <option>Africa/Johannesburg (UTC+2)</option>
-              </select>
             </div>
           </div>
 
