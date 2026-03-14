@@ -295,7 +295,7 @@ onMounted(() => {
   if (savedPaymentData) {
     paymentData.value = JSON.parse(savedPaymentData)
   } else {
-    router.push('/client/search')
+    router.push('/client/search-trips')
   }
 })
 </script>

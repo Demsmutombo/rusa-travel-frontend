@@ -128,10 +128,18 @@
             </div>
           </form>
 
-          <p class="mt-6 text-xs text-center text-gray-500">
-            Démo : utilisez n'importe quel email et mot de passe pour vous connecter.
-          </p>
-        </div>
+          <!-- Documentation Button -->
+          <div class="mt-6 text-center">
+            <button
+              @click="showDocumentation"
+              class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 font-medium transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center mx-auto"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Voir la Documentation
+            </button>
+          </div>
       </div>
 
       <div class="relative flex-1 hidden lg:block">
@@ -178,6 +186,11 @@ const formData = ref({
 
 const isLoading = ref(false)
 const errorMessage = ref('')
+
+const showDocumentation = () => {
+  // Rediriger vers la page de documentation complète
+  router.push('/login')
+}
 
 const handleSubmit = async () => {
   if (!formData.value.email || !formData.value.password) {

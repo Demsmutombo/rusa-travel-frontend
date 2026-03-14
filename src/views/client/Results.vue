@@ -10,7 +10,7 @@
           </p>
         </div>
         <button
-          @click="$router.push('/client/search')"
+          @click="$router.push('/client/search-trips')"
           class="px-4 py-2 text-blue-600 hover:text-blue-700 font-medium"
         >
           Modifier la recherche
@@ -188,7 +188,7 @@
       <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun bus trouvé</h3>
       <p class="text-gray-600 mb-4">Essayez de modifier vos critères de recherche</p>
       <button
-        @click="$router.push('/client/search')"
+        @click="$router.push('/client/search-trips')"
         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
       >
         Nouvelle recherche

@@ -1,57 +1,385 @@
 <template>
-  <div class="space-y-6">
-    <!-- Header -->
-    <div>
-      <h1 class="text-3xl font-bold">Paramètres Manager</h1>
-      <p class="text-gray-600 mt-1">Configuration des préférences et paramètres du système</p>
-    </div>
+  <!-- Settings Header -->
+  <div class="mb-6">
+    <h1 class="text-lg sm:text-2xl font-bold text-gray-900">Paramètres</h1>
+    <p class="text-gray-600 mt-1 text-sm sm:text-base">Gérez les paramètres de votre compte et préférences système</p>
+  </div>
 
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
     <!-- Settings Navigation -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div class="border-b border-gray-200">
-        <nav class="flex space-x-8 px-6" aria-label="Tabs">
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:sticky lg:top-6">
+        <nav class="space-y-1">
           <button
             v-for="tab in settingsTabs"
             :key="tab.id"
             @click="activeTab = tab.id"
             :class="[
-              'py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap',
+              'w-full text-left px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors',
               activeTab === tab.id
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'bg-blue-50 text-blue-600 border-blue-200'
+                : 'text-gray-700 hover:bg-gray-50'
             ]"
           >
-            {{ tab.name }}
+            <div class="flex items-center">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="tab.icon" />
+              </svg>
+              {{ tab.label }}
+            </div>
           </button>
         </nav>
       </div>
+    </div>
 
-      <!-- Tab Content -->
-      <div class="p-6">
-        <!-- General Settings -->
-        <div v-if="activeTab === 'general'" class="space-y-6">
-          <h3 class="text-lg font-medium text-gray-900 mb-4">Paramètres Généraux</h3>
-          
+    <!-- Settings Content -->
+    <div class="lg:col-span-2">
+      <!-- Profile Settings -->
+      <div v-if="activeTab === 'profile'" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Profil</h2>
+        
+        <div class="space-y-6">
+          <div class="flex items-center space-x-6">
+            <div class="flex-shrink-0">
+              <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                <span class="text-2xl font-medium text-gray-600">{{ user.name.charAt(0) }}</span>
+              </div>
+            </div>
+            <div>
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                Changer la photo
+              </button>
+            </div>
+          </div>
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise</label>
+              <label class="block text-sm font-medium text-gray-700">Nom complet</label>
               <input
+                v-model="user.name"
                 type="text"
-                value="Rusa Travel"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Email administrateur</label>
+              <label class="block text-sm font-medium text-gray-700">Email</label>
               <input
+                v-model="user.email"
                 type="email"
-                value="admin@rusatravel.cd"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+              <label class="block text-sm font-medium text-gray-700">Téléphone</label>
               <input
+                v-model="user.phone"
+                type="tel"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Rôle</label>
+              <input
+                :value="user.role"
+                type="text"
+                disabled
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Bio</label>
+            <textarea
+              v-model="user.bio"
+              rows="3"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Parlez-nous de vous..."
+            ></textarea>
+          </div>
+
+          <div class="flex justify-end space-x-3">
+            <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+              Annuler
+            </button>
+            <button @click="saveProfile" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Settings -->
+      <div v-if="activeTab === 'security'" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Sécurité</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-md font-medium text-gray-900 mb-4">Changer le mot de passe</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Mot de passe actuel</label>
+                <input
+                  v-model="passwordForm.current"
+                  type="password"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Nouveau mot de passe</label>
+                <input
+                  v-model="passwordForm.new"
+                  type="password"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Confirmer le nouveau mot de passe</label>
+                <input
+                  v-model="passwordForm.confirm"
+                  type="password"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-md font-medium text-gray-900 mb-4">Authentification à deux facteurs</h3>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-700">Ajoutez une couche de sécurité supplémentaire à votre compte</p>
+              </div>
+              <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm">
+                Activer 2FA
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-md font-medium text-gray-900 mb-4">Sessions actives</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                <div>
+                  <p class="text-sm font-medium text-gray-900">Chrome - Windows</p>
+                  <p class="text-xs text-gray-500">Kinshasa, RDC • IP: 192.168.1.1</p>
+                </div>
+                <button class="text-red-600 hover:text-red-700 text-sm">Déconnecter</button>
+              </div>
+              <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                <div>
+                  <p class="text-sm font-medium text-gray-900">Safari - iPhone</p>
+                  <p class="text-xs text-gray-500">Lubumbashi, RDC • IP: 192.168.1.2</p>
+                </div>
+                <button class="text-red-600 hover:text-red-700 text-sm">Déconnecter</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end space-x-3">
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              Mettre à jour le mot de passe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification Settings -->
+      <div v-if="activeTab === 'notifications'" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Notifications</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-md font-medium text-gray-900 mb-4">Notifications par email</h3>
+            <div class="space-y-3">
+              <label class="flex items-center">
+                <input
+                  v-model="notifications.email.bookings"
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span class="ml-2 text-sm text-gray-700">Nouvelles réservations</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  v-model="notifications.email.payments"
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span class="ml-2 text-sm text-gray-700">Paiements reçus</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  v-model="notifications.email.system"
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span class="ml-2 text-sm text-gray-700">Alertes système</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-md font-medium text-gray-900 mb-4">Notifications push</h3>
+            <div class="space-y-3">
+              <label class="flex items-center">
+                <input
+                  v-model="notifications.push.bookings"
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span class="ml-2 text-sm text-gray-700">Réservations urgentes</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  v-model="notifications.push.messages"
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span class="ml-2 text-sm text-gray-700">Messages des passagers</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex justify-end space-x-3">
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              Enregistrer les préférences
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Settings -->
+      <div v-if="activeTab === 'system'" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Paramètres système</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-md font-medium text-gray-900 mb-4">Préférences d'affichage</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Langue</label>
+                <select v-model="system.language" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                  <option value="fr">Français</option>
+                  <option value="en">English</option>
+                  <option value="sw">Swahili</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Fuseau horaire</label>
+                <select v-model="system.timezone" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                  <option value="Africa/Kinshasa">Kinshasa (GMT+1)</option>
+                  <option value="Africa/Lubumbashi">Lubumbashi (GMT+2)</option>
+                  <option value="UTC">UTC</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Format de date</label>
+                <select v-model="system.dateFormat" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                  <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                  <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-md font-medium text-gray-900 mb-4">Sauvegarde des données</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-700">Dernière sauvegarde</p>
+                  <p class="text-xs text-gray-500">12 Mars 2024 à 14:30</p>
+                </div>
+                <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm">
+                  Sauvegarder maintenant
+                </button>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-700">Sauvegarde automatique</p>
+                  <p class="text-xs text-gray-500">Tous les jours à 02:00</p>
+                </div>
+                <label class="flex items-center">
+                  <input
+                    v-model="system.autoBackup"
+                    type="checkbox"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end space-x-3">
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              Enregistrer les paramètres
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+defineOptions({
+  name: 'ManagerSettings'
+})
+
+// Reactive data
+const activeTab = ref('profile')
+
+const settingsTabs = [
+  { id: 'profile', label: 'Profil', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
+  { id: 'security', label: 'Sécurité', icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
+  { id: 'notifications', label: 'Notifications', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' },
+  { id: 'system', label: 'Système', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-2.572-1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31.826-2.37 2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' }
+]
+
+const user = ref({
+  name: 'Jean Mukendi',
+  email: 'jean.mukendi@rusatravel.com',
+  phone: '+243 812 345 678',
+  role: 'Transport Manager',
+  bio: 'Manager expérimenté avec plus de 10 ans dans le transport de passagers.'
+})
+
+const passwordForm = ref({
+  current: '',
+  new: '',
+  confirm: ''
+})
+
+const notifications = ref({
+  email: {
+    bookings: true,
+    payments: true,
+    system: false
+  },
+  push: {
+    bookings: true,
+    messages: false
+  }
+})
+
+const system = ref({
+  language: 'fr',
+  timezone: 'Africa/Kinshasa',
+  dateFormat: 'DD/MM/YYYY',
+  autoBackup: true
+})
+
+// Methods
+const saveProfile = () => {
+  // Simulate API call
+  console.log('Profile saved:', user.value)
+  alert('Profil mis à jour avec succès!')
+}
+</script>
                 type="tel"
                 value="+243 123 456 789"
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"

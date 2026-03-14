@@ -48,7 +48,7 @@
             to="/search"
             class="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200 relative group"
           >
-            Réservations
+            Rechercher
             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
           </router-link>
           
@@ -188,7 +188,7 @@
                   </router-link>
                   <div class="border-t my-2"></div>
                   <button
-                    @click="handleLogout"
+                    @click="$emit('handleLogout')"
                     class="w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors text-left"
                   >
                     <span class="flex items-center space-x-2">
@@ -223,29 +223,41 @@
         <nav class="flex flex-col space-y-4">
           <router-link
             to="/"
-            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
             @click="closeMobileMenu"
+            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
           >
             Accueil
           </router-link>
+          
+          <div class="relative">
+            <button class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors flex items-center space-x-1">
+              <span>Destinations</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          
           <router-link
             to="/search"
-            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
             @click="closeMobileMenu"
+            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
           >
-            Réservations
+            Rechercher
           </router-link>
+          
           <router-link
             to="/about"
-            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
             @click="closeMobileMenu"
+            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
           >
             À propos
           </router-link>
+          
           <router-link
             to="/contact"
-            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
             @click="closeMobileMenu"
+            class="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 transition-colors"
           >
             Contact
           </router-link>
@@ -253,8 +265,8 @@
           <div v-if="!authStore.isAuthenticated" class="flex flex-col space-y-3 pt-4 border-t">
             <router-link
               to="/login"
+              @click="$emit('toggleMobileMenu')"
               class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 font-medium text-lg transition-all duration-200 text-center shadow-md"
-              @click="closeMobileMenu"
             >
               <span class="flex items-center justify-center space-x-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -265,8 +277,8 @@
             </router-link>
             <router-link
               to="/register"
+              @click="$emit('toggleMobileMenu')"
               class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white font-medium text-lg transition-all duration-200 text-center"
-              @click="closeMobileMenu"
             >
               <span class="flex items-center justify-center space-x-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -332,7 +344,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import RusaLogo from '@/components/common/RusaLogo.vue'
@@ -341,26 +353,49 @@ defineOptions({
   name: 'AppHeader'
 })
 
+const props = defineProps<{
+  isMobileMenuOpen?: boolean
+}>()
+
+const emit = defineEmits<{
+  toggleMobileMenu: []
+  handleLogout: []
+}>()
+
 const router = useRouter()
 const authStore = useAuthStore()
-const isMobileMenuOpen = ref(false)
 const showDestinationsDropdown = ref(false)
 const showNotifications = ref(false)
 const showUserMenu = ref(false)
 
+// Internal mobile menu state
+const internalIsMobileMenuOpen = ref(false)
+
+// Use prop if provided, otherwise use internal state
+const isMobileMenuOpen = computed(() => props.isMobileMenuOpen ?? internalIsMobileMenuOpen.value)
+
 const toggleMobileMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
+  if (props.isMobileMenuOpen !== undefined) {
+    emit('toggleMobileMenu')
+  } else {
+    internalIsMobileMenuOpen.value = !internalIsMobileMenuOpen.value
+  }
 }
 
 const closeMobileMenu = () => {
-  isMobileMenuOpen.value = false
+  if (props.isMobileMenuOpen !== undefined) {
+    emit('toggleMobileMenu')
+  } else {
+    internalIsMobileMenuOpen.value = false
+  }
 }
 
 const handleLogout = () => {
   console.log('Déconnexion cliquée - utilisateur actuel:', authStore.currentUser)
   authStore.logout()
   router.push('/')
-  isMobileMenuOpen.value = false
   showUserMenu.value = false
+  closeMobileMenu()
+  emit('handleLogout')
 }
 </script>

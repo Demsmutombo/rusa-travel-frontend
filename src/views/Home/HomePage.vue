@@ -1,7 +1,11 @@
 <template>
   <div class="min-h-screen">
     <!-- Navigation -->
-    <AppHeader />
+    <AppHeader 
+      :is-mobile-menu-open="isMobileMenuOpen"
+      @toggle-mobile-menu="toggleMobileMenu"
+      @handle-logout="handleLogout"
+    />
 
     <!-- Hero Section - Style Liveto Travel -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
@@ -340,7 +344,7 @@
     <section class="relative py-24 bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-900 text-white overflow-hidden">
       <!-- Background Pattern -->
       <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0 bg-repeat" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4zIj48cGF0aCBkPSJNMzYgMzR2LTRoLTJ2NGgtNHYyaDR2NGgydi00aDR2NGgydi00aDR2LTR6bTAtMzBWMGgtMnY0aC00djJoLTR2NGgtNHYyaDR2NGgydi00aDR2NHptMC0zMFYwaC0ydjRoLTR2MmgtNHY0aC00djJoLTR2NGgydi00aDR2NHptLTMwIDMwdi00aDR2MEgwdjJoNHYyaDR2NGgydi00aDR2NHptMC0zMFYwaC0ydjRoLTR2MmgtNHY0aC00djJoLTR2NGgydi00aDR2NHptLTQgNFY0SDRoNGg0djBIMHYySDRoNHYyaDR2NGgydi00aDR2NHptbm00IDRWMEg0aDRIMDBdjJoNHYySDRoNHYyaDR2NGgydi00aDR2NHpteloiLz48L2c+PC9nPjwvZz48L3N2Zz4='); background-size: 60px 60px;"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
       </div>
       
       <div class="container mx-auto px-4 relative z-10">
@@ -375,6 +379,7 @@
               <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
             <button
+              v-if="!isAuthenticated"
               @click="goToLogin"
               class="group px-12 py-5 bg-white/10 backdrop-blur-sm text-white rounded-xl hover:bg-white/20 font-bold text-lg transition-all duration-300 transform hover:scale-105 border-2 border-white/30 hover:border-white/50 overflow-hidden"
             >
@@ -576,6 +581,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import AppHeader from '@/components/common/AppHeader.vue'
 
 defineOptions({
@@ -583,6 +589,23 @@ defineOptions({
 })
 
 const router = useRouter()
+const authStore = useAuthStore()
+
+// Vérifier si l'utilisateur est connecté
+const isAuthenticated = computed(() => authStore.isAuthenticated)
+
+// Mobile menu state
+const isMobileMenuOpen = ref(false)
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/')
+  isMobileMenuOpen.value = false
+}
 
 // Fonctions explicites pour les boutons principaux (définies en premier)
 const goToSearch = () => {

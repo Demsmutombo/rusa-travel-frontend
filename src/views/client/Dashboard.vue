@@ -1,489 +1,465 @@
 <template>
-  <div class="space-y-6">
-    <!-- Header -->
-    <div class="flex items-center space-x-4">
-      <!-- Logo -->
-      <div class="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden shadow-md">
-        <img 
-          src="/images/logo/auth-logo.svg" 
-          alt="Rusa Travel" 
-          class="w-full h-full object-contain"
-        />
-      </div>
-      <div>
-        <h1 class="text-3xl font-bold">Dashboard Client - Espace Personnel</h1>
-        <p class="text-gray-600 mt-1">Vue d'ensemble de vos voyages et réservations</p>
-      </div>
-    </div>
-
-    <!-- Charts Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Travel History Chart -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold mb-4">Historique des Voyages</h3>
-        <div class="h-64">
-          <canvas ref="travelChartCanvas"></canvas>
-        </div>
+  <DashboardLayout>
+    <!-- Welcome Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-4 sm:p-6 text-white mb-6">
+        <h2 class="text-lg sm:text-2xl font-bold mb-2">Bienvenue, {{ userProfile.name }} !</h2>
+        <p class="text-sm sm:text-base opacity-90">Vous avez {{ upcomingTrips.length }} voyage(s) à venir</p>
       </div>
 
-      <!-- Spending Chart -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold mb-4">Dépenses Mensuelles</h3>
-        <div class="h-64">
-          <canvas ref="spendingChart"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Additional Charts -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-      <!-- Popular Routes -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold mb-4">Routes Préférées</h3>
-        <div class="h-48">
-          <canvas ref="routesChart"></canvas>
-        </div>
-      </div>
-
-      <!-- Loyalty Points -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold mb-4">Points Fidélité</h3>
-        <div class="h-48">
-          <canvas ref="loyaltyChart"></canvas>
-        </div>
-      </div>
-
-      <!-- Travel Frequency -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold mb-4">Fréquence de Voyage</h3>
-        <div class="h-48">
-          <canvas ref="frequencyChart"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Client Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <!-- Stats Overview -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Total Voyages</p>
-            <p class="text-2xl font-bold text-gray-900">{{ clientStats.totalTrips }}</p>
-            <p class="text-xs text-green-600 mt-1">+3 ce mois</p>
+            <p class="text-sm font-medium text-gray-600">Voyages à Venir</p>
+            <p class="text-xl sm:text-2xl font-bold text-gray-900">{{ upcomingTrips.length }}</p>
+            <p class="text-xs text-green-600 mt-1">Prochains jours</p>
           </div>
-          <div class="p-3 bg-blue-100 rounded-full">
-            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          <div class="p-2 sm:p-3 bg-blue-100 rounded-full">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Réservations Actives</p>
-            <p class="text-2xl font-bold text-gray-900">{{ clientStats.activeBookings }}</p>
-            <p class="text-xs text-green-600 mt-1">+2 cette semaine</p>
+            <p class="text-sm font-medium text-gray-600">Réservations Récentes</p>
+            <p class="text-xl sm:text-2xl font-bold text-gray-900">{{ recentBookings.length }}</p>
+            <p class="text-xs text-green-600 mt-1">30 derniers jours</p>
           </div>
-          <div class="p-3 bg-green-100 rounded-full">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="p-2 sm:p-3 bg-green-100 rounded-full">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Notifications</p>
+            <p class="text-xl sm:text-2xl font-bold text-gray-900">{{ unreadNotifications }}</p>
+            <p class="text-xs text-yellow-600 mt-1">Non lues</p>
+          </div>
+          <div class="p-2 sm:p-3 bg-yellow-100 rounded-full">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
         <div class="flex items-center justify-between">
           <div>
             <p class="text-sm font-medium text-gray-600">Points Fidélité</p>
-            <p class="text-2xl font-bold text-gray-900">{{ clientStats.loyaltyPoints.toLocaleString() }}</p>
-            <p class="text-xs text-green-600 mt-1">+250 ce mois</p>
+            <p class="text-xl sm:text-2xl font-bold text-gray-900">{{ userProfile.loyaltyPoints }}</p>
+            <p class="text-xs text-purple-600 mt-1">À utiliser</p>
           </div>
-          <div class="p-3 bg-purple-100 rounded-full">
-            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-gray-600">Total Dépensé</p>
-            <p class="text-2xl font-bold text-gray-900">{{ formatCurrency(clientStats.totalSpent) }}</p>
-            <p class="text-xs text-green-600 mt-1">+15% ce mois</p>
-          </div>
-          <div class="p-3 bg-yellow-100 rounded-full">
-            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-gray-600">Économies Réalisées</p>
-            <p class="text-2xl font-bold text-gray-900">{{ formatCurrency(clientStats.totalSavings) }}</p>
-            <p class="text-xs text-green-600 mt-1">+22% ce mois</p>
-          </div>
-          <div class="p-3 bg-red-100 rounded-full">
-            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div class="p-2 sm:p-3 bg-purple-100 rounded-full">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
             </svg>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Charts and Analytics -->
+    <!-- Main Content Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Travel History -->
-      <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 class="text-xl font-semibold mb-4">Analyse des Voyages</h2>
-        <div class="h-64 flex items-center justify-center text-gray-500">
-          <div class="text-center">
-            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-            <p>Graphique d'analyse des voyages</p>
+      <!-- Upcoming Trips -->
+      <div class="lg:col-span-2 space-y-6">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Voyages à Venir</h3>
+            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              Voir tout
+            </button>
+          </div>
+          <div class="space-y-4">
+            <div 
+              v-for="trip in upcomingTrips" 
+              :key="trip.id"
+              class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 mb-2">
+                    <span class="text-lg font-bold text-gray-900">{{ trip.departure }}</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                    <span class="text-lg font-bold text-gray-900">{{ trip.destination }}</span>
+                  </div>
+                  <div class="text-sm text-gray-600 space-y-1">
+                    <div>Date: {{ formatDate(trip.date) }}</div>
+                    <div>Heure: {{ trip.time }}</div>
+                    <div>Bus: {{ trip.busPlate }}</div>
+                    <div>Siège: {{ trip.seatNumber }}</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-lg font-bold text-blue-600">{{ formatCurrency(trip.price) }}</div>
+                  <span :class="getStatusClass(trip.status)" class="inline-block px-2 py-1 text-xs font-semibold rounded-full mt-2">
+                    {{ getStatusLabel(trip.status) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Bookings -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Réservations Récentes</h3>
+            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              Voir tout
+            </button>
+          </div>
+          <div class="space-y-4">
+            <div 
+              v-for="booking in recentBookings" 
+              :key="booking.id"
+              class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 mb-2">
+                    <span class="font-medium text-gray-900">{{ booking.route }}</span>
+                  </div>
+                  <div class="text-sm text-gray-600 space-y-1">
+                    <div>Réservation: #{{ booking.id }}</div>
+                    <div>Date: {{ formatDate(booking.date) }}</div>
+                    <div>Places: {{ booking.seats }}</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-gray-900">{{ formatCurrency(booking.price) }}</div>
+                  <span :class="getStatusClass(booking.status)" class="inline-block px-2 py-1 text-xs font-semibold rounded-full mt-2">
+                    {{ getStatusLabel(booking.status) }}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Favorite Destinations -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 class="text-xl font-semibold mb-4">Destinations Préférées</h2>
-        <div class="space-y-4">
-          <div v-for="(destination, index) in favoriteDestinations" :key="destination.id" class="flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <span class="text-sm font-medium text-blue-600">{{ index + 1 }}</span>
-              </div>
-              <div>
-                <p class="text-sm font-medium text-gray-900">{{ destination.name }}</p>
-                <p class="text-xs text-gray-500">{{ destination.trips }} voyages</p>
+      <!-- Right Sidebar -->
+      <div class="space-y-6">
+        <!-- Notifications -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Notifications</h3>
+            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              Tout marquer comme lu
+            </button>
+          </div>
+          <div class="space-y-3">
+            <div 
+              v-for="notification in notifications" 
+              :key="notification.id"
+              class="p-3 rounded-lg hover:bg-gray-50 cursor-pointer"
+              :class="{ 'bg-blue-50': !notification.read }"
+            >
+              <div class="flex items-start space-x-3">
+                <div class="p-2 rounded-full" :class="getNotificationIconClass(notification.type)">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-gray-900">{{ notification.title }}</p>
+                  <p class="text-xs text-gray-600 mt-1">{{ notification.message }}</p>
+                  <p class="text-xs text-gray-400 mt-1">{{ formatRelativeTime(notification.time) }}</p>
+                </div>
               </div>
             </div>
-            <div class="text-right">
-              <p class="text-sm font-medium text-gray-900">{{ destination.frequency }}</p>
+          </div>
+        </div>
+
+        <!-- Favorite Destinations -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Destinations Préférées</h3>
+            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              Modifier
+            </button>
+          </div>
+          <div class="space-y-3">
+            <div 
+              v-for="destination in favoriteDestinations" 
+              :key="destination.id"
+              class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 cursor-pointer"
+            >
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                  {{ destination.name.charAt(0) }}
+                </div>
+                <div>
+                  <p class="font-medium text-gray-900">{{ destination.name }}</p>
+                  <p class="text-xs text-gray-600">{{ destination.trips }} voyages</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-bold text-blue-600">{{ formatCurrency(destination.avgPrice) }}</p>
+                <p class="text-xs text-gray-500">moy.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Recent Activities -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Recent Bookings -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-semibold">Réservations Récentes</h2>
-          <router-link
-            to="/client/bookings"
-            class="text-blue-600 hover:text-blue-700 font-medium text-sm"
-          >
-            Voir tout
-          </router-link>
-        </div>
-        
-        <div class="space-y-3">
-          <div v-for="booking in recentBookings" :key="booking.id" class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 bg-white rounded-full">
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                </svg>
-              </div>
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-gray-900">{{ booking.route }}</p>
-                <p class="text-xs text-gray-500">{{ booking.date }}</p>
-              </div>
-            </div>
-            <div class="text-right">
-              <p class="text-sm font-medium text-gray-900">{{ formatCurrency(booking.price) }}</p>
-              <p class="text-xs text-gray-500">{{ booking.status }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Travel Notifications -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-semibold">Notifications Voyage</h2>
-          <router-link
-            to="/client/notifications"
-            class="text-blue-600 hover:text-blue-700 font-medium text-sm"
-          >
-            Voir tout
-          </router-link>
-        </div>
-        
-        <div class="space-y-4">
-          <div v-for="notification in travelNotifications" :key="notification.id" class="flex items-start space-x-3 p-3 rounded-lg"
-               :class="{
-                 'bg-red-50': notification.type === 'urgent',
-                 'bg-yellow-50': notification.type === 'reminder',
-                 'bg-blue-50': notification.type === 'info'
-               }">
-            <div class="p-2 rounded-full flex-shrink-0"
-                 :class="{
-                   'bg-red-100': notification.type === 'urgent',
-                   'bg-yellow-100': notification.type === 'reminder',
-                   'bg-blue-100': notification.type === 'info'
-                 }">
-              <svg class="w-5 h-5"
-                   :class="{
-                     'text-red-600': notification.type === 'urgent',
-                     'text-yellow-600': notification.type === 'reminder',
-                     'text-blue-600': notification.type === 'info'
-                   }"
-                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900">{{ notification.title }}</p>
-              <p class="text-xs text-gray-500 mt-1">{{ notification.message }}</p>
-              <p class="text-xs text-gray-400 mt-1">{{ notification.time }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </DashboardLayout>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import {
-  Chart,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-} from 'chart.js'
-import { useRouter } from 'vue-router'
-
-// Enregistrement des composants Chart.js
-Chart.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-)
+        <script setup lang="ts">
+import { ref, computed, reactive, onMounted } from 'vue'
+import DashboardLayout from '@/components/layouts/DashboardLayout.vue'
 
 defineOptions({
   name: 'ClientDashboard'
 })
 
-const router = useRouter()
-
-// Références aux canvas
-const travelChartCanvas = ref<HTMLCanvasElement>()
-const spendingChart = ref<HTMLCanvasElement>()
-const routesChart = ref<HTMLCanvasElement>()
-const loyaltyChart = ref<HTMLCanvasElement>()
-const frequencyChart = ref<HTMLCanvasElement>()
-
-// Données client
-const clientStats = ref({
-  totalTrips: 47,
-  activeBookings: 12,
-  totalSpent: '2,450,000 Fb',
-  savedAmount: '125,000 Fb',
-  loyaltyPoints: 850,
-  nextTrip: 'Kinshasa - Lubumbashi',
-  totalSavings: '125,000 Fb'
+// User profile
+const userProfile = reactive({
+  name: 'Jean Client',
+  email: 'jean.client@email.com',
+  phone: '+243 812 345 678',
+  loyaltyPoints: 2500
 })
 
-const favoriteDestinations = ref([
-  { id: 1, name: 'Kinshasa', city: 'Kinshasa', trips: 12, percentage: 45, frequency: '45%' },
-  { id: 2, name: 'Lubumbashi', city: 'Lubumbashi', trips: 8, percentage: 30, frequency: '30%' },
-  { id: 3, name: 'Goma', city: 'Goma', trips: 4, percentage: 25, frequency: '25%' }
+// Upcoming trips
+const upcomingTrips = ref([
+  {
+    id: 1,
+    departure: 'Kinshasa',
+    destination: 'Lubumbashi',
+    date: '2024-03-20',
+    time: '08:00',
+    busPlate: 'CD-123-AB',
+    seatNumber: '12A',
+    price: 15000,
+    status: 'confirmed'
+  },
+  {
+    id: 2,
+    departure: 'Lubumbashi',
+    destination: 'Kinshasa',
+    date: '2024-03-25',
+    time: '14:30',
+    busPlate: 'CD-456-CD',
+    seatNumber: '8B',
+    price: 15000,
+    status: 'confirmed'
+  }
 ])
 
+// Recent bookings
 const recentBookings = ref([
-  { id: 1, route: 'Kinshasa-Lubumbashi', description: 'Voyage aller simple', time: '10:30', amount: 85000, status: 'confirmed', date: '2024-03-12', price: 85000 },
-  { id: 2, route: 'Lubumbashi-Kinshasa', description: 'Voyage retour', time: '14:15', amount: 85000, status: 'pending', date: '2024-03-15', price: 85000 },
-  { id: 3, route: 'Kinshasa-Goma', description: 'Voyage aller simple', time: '08:00', amount: 65000, status: 'completed', date: '2024-03-10', price: 65000 }
+  {
+    id: 'BK001',
+    route: 'Kinshasa → Kisangani',
+    date: '2024-03-10',
+    seats: 2,
+    price: 20000,
+    status: 'completed'
+  },
+  {
+    id: 'BK002',
+    route: 'Kinshasa → Matadi',
+    date: '2024-03-05',
+    seats: 1,
+    price: 4500,
+    status: 'completed'
+  },
+  {
+    id: 'BK003',
+    route: 'Kinshasa → Bukavu',
+    date: '2024-02-28',
+    seats: 3,
+    price: 42000,
+    status: 'completed'
+  }
 ])
 
-const travelNotifications = ref([
-  { id: 1, title: 'Confirmation de réservation', description: 'Votre voyage Kinshasa-Lubumbashi est confirmé', type: 'success', time: 'Il y a 2h', message: 'Réservation confirmée avec succès', date: '2024-03-12' },
-  { id: 2, title: 'Rappel de départ', description: 'Votre bus part dans 2 heures', type: 'warning', time: 'Il y a 30min', message: 'Présentez-vous 30min avant le départ', date: '2024-03-12' },
-  { id: 3, title: 'Promotion spéciale', description: '-20% sur tous les voyages cette semaine', type: 'info', time: 'Il y a 1 jour', message: 'Profitez de notre offre spéciale', date: '2024-03-11' }
+// Notifications
+const notifications = ref([
+  {
+    id: 1,
+    type: 'info',
+    title: 'Nouveau trajet disponible',
+    message: 'Un nouveau trajet Kinshasa-Lubumbashi a été ajouté pour le 25 mars.',
+    time: new Date('2024-03-13T10:30:00'),
+    read: false
+  },
+  {
+    id: 2,
+    type: 'success',
+    title: 'Réservation confirmée',
+    message: 'Votre réservation #BK004 pour Kinshasa-Lubumbashi a été confirmée.',
+    time: new Date('2024-03-12T15:45:00'),
+    read: false
+  },
+  {
+    id: 3,
+    type: 'reminder',
+    title: 'Rappel de voyage',
+    message: 'Votre voyage Kinshasa-Lubumbashi est prévu pour demain à 08:00.',
+    time: new Date('2024-03-11T09:00:00'),
+    read: true
+  },
+  {
+    id: 4,
+    type: 'promotion',
+    title: 'Offre spéciale',
+    message: 'Profitez de -20% sur tous les trajets vers Lubumbashi cette semaine.',
+    time: new Date('2024-03-10T14:20:00'),
+    read: true
+  }
 ])
 
-// Utility functions
-const formatCurrency = (amount: string | number) => {
-  const numAmount = typeof amount === 'string' ? parseFloat(amount.replace(/[^0-9.-]/g, '')) : amount
+// Favorite destinations
+const favoriteDestinations = ref([
+  {
+    id: 1,
+    name: 'Lubumbashi',
+    trips: 8,
+    avgPrice: 15000
+  },
+  {
+    id: 2,
+    name: 'Kisangani',
+    trips: 5,
+    avgPrice: 10000
+  },
+  {
+    id: 3,
+    name: 'Matadi',
+    trips: 3,
+    avgPrice: 4500
+  },
+  {
+    id: 4,
+    name: 'Bukavu',
+    trips: 2,
+    avgPrice: 14000
+  }
+])
+
+// Computed properties
+const unreadNotifications = computed(() => {
+  return notifications.value.filter(n => !n.read).length
+})
+
+// Helper functions
+const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('fr-FR', {
     style: 'currency',
-    currency: 'XOF'
-  }).format(numAmount)
+    currency: 'XOF',
+    minimumFractionDigits: 0
+  }).format(amount)
 }
 
-// Chart initialization
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
+}
+
+const formatRelativeTime = (date: Date) => {
+  const now = new Date()
+  const diffInMs = now.getTime() - date.getTime()
+  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60))
+  const diffInDays = Math.floor(diffInHours / 24)
+
+  if (diffInHours < 1) {
+    return 'Il y a quelques minutes'
+  } else if (diffInHours < 24) {
+    return `Il y a ${diffInHours} heure${diffInHours > 1 ? 's' : ''}`
+  } else if (diffInDays < 7) {
+    return `Il y a ${diffInDays} jour${diffInDays > 1 ? 's' : ''}`
+  } else {
+    return date.toLocaleDateString('fr-FR')
+  }
+}
+
+const getStatusClass = (status: string) => {
+  switch (status) {
+    case 'confirmed':
+      return 'bg-green-100 text-green-800'
+    case 'pending':
+      return 'bg-yellow-100 text-yellow-800'
+    case 'cancelled':
+      return 'bg-red-100 text-red-800'
+    case 'completed':
+      return 'bg-blue-100 text-blue-800'
+    default:
+      return 'bg-gray-100 text-gray-800'
+  }
+}
+
+const getStatusLabel = (status: string) => {
+  switch (status) {
+    case 'confirmed':
+      return 'Confirmé'
+    case 'pending':
+      return 'En attente'
+    case 'cancelled':
+      return 'Annulé'
+    case 'completed':
+      return 'Terminé'
+    default:
+      return status
+  }
+}
+
+const getNotificationIconClass = (type: string) => {
+  switch (type) {
+    case 'info':
+      return 'bg-blue-100 text-blue-600'
+    case 'success':
+      return 'bg-green-100 text-green-600'
+    case 'reminder':
+      return 'bg-yellow-100 text-yellow-600'
+    case 'promotion':
+      return 'bg-purple-100 text-purple-600'
+    default:
+      return 'bg-gray-100 text-gray-600'
+  }
+}
+
+// Actions
+const markAllNotificationsAsRead = () => {
+  notifications.value.forEach(notification => {
+    notification.read = true
+  })
+}
+
+const viewAllTrips = () => {
+  // Navigate to trips page
+  console.log('Navigate to all trips')
+}
+
+const viewAllBookings = () => {
+  // Navigate to bookings page
+  console.log('Navigate to all bookings')
+}
+
+const editFavoriteDestinations = () => {
+  // Open modal to edit favorites
+  console.log('Edit favorite destinations')
+}
+
 onMounted(() => {
-  // Travel History Chart
-  const travelCanvas = travelChartCanvas.value
-  if (travelCanvas) {
-    new Chart(travelCanvas, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-        datasets: [{
-          label: 'Voyages',
-          data: [3, 4, 2, 5, 6, 4],
-          borderColor: 'rgb(59, 130, 246)',
-          backgroundColor: 'rgba(59, 130, 246, 0.1)',
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top'
-          }
-        }
-      }
-    })
-  }
-
-  // Spending Chart
-  const spendingCanvas = spendingChart.value
-  if (spendingCanvas) {
-    new Chart(spendingCanvas, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-        datasets: [{
-          label: 'Dépenses (K Fb)',
-          data: [65000, 85000, 55000, 95000, 120000, 60000],
-          backgroundColor: 'rgba(34, 197, 94, 0.8)'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top'
-          }
-        }
-      }
-    })
-  }
-
-  // Popular Routes Chart
-  const routesCanvas = routesChart.value
-  if (routesCanvas) {
-    new Chart(routesCanvas, {
-      type: 'doughnut',
-      data: {
-        labels: ['Kinshasa-Lubumbashi', 'Kinshasa-Goma', 'Kinshasa-Kisangani', 'Autres'],
-        datasets: [{
-          data: [40, 25, 20, 15],
-          backgroundColor: [
-            'rgba(59, 130, 246, 0.8)',
-            'rgba(34, 197, 94, 0.8)',
-            'rgba(251, 146, 60, 0.8)',
-            'rgba(156, 163, 175, 0.8)'
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'bottom'
-          }
-        }
-      }
-    })
-  }
-
-  // Loyalty Points Chart
-  const loyaltyCanvas = loyaltyChart.value
-  if (loyaltyCanvas) {
-    new Chart(loyaltyCanvas, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-        datasets: [{
-          label: 'Points Gagnés',
-          data: [180, 220, 150, 280, 320, 100],
-          backgroundColor: 'rgba(59, 130, 246, 0.8)'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top'
-          }
-        }
-      }
-    })
-  }
-
-  // Travel Frequency Chart
-  const frequencyCanvas = frequencyChart.value
-  if (frequencyCanvas) {
-    new Chart(frequencyCanvas, {
-      type: 'polarArea',
-      data: {
-        labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-        datasets: [{
-          data: [4, 3, 5, 2, 6, 3, 1],
-          backgroundColor: [
-            'rgba(59, 130, 246, 0.6)',
-            'rgba(34, 197, 94, 0.6)',
-            'rgba(251, 146, 60, 0.6)',
-            'rgba(156, 163, 175, 0.6)',
-            'rgba(239, 68, 68, 0.6)',
-            'rgba(147, 51, 234, 0.6)',
-            'rgba(245, 158, 11, 0.6)'
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'bottom'
-          }
-        }
-      }
-    })
-  }
+  // Initialize data
+  console.log('Client Dashboard mounted')
 })
 </script>

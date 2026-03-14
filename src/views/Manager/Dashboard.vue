@@ -11,26 +11,105 @@
         />
       </div>
       <div>
-        <h1 class="text-3xl font-bold">Dashboard Manager - Gestion des Opérations</h1>
-        <p class="text-gray-600 mt-1">Vue d'ensemble de la gestion des équipes et opérations</p>
+        <h1 class="text-3xl font-bold">Rusa Travel - Dashboard Transport Manager</h1>
+        <p class="text-gray-600 mt-1">Vue d'ensemble de la gestion des opérations de transport</p>
+      </div>
+    </div>
+
+    <!-- Transport Statistics -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <p class="text-xs sm:text-sm font-medium text-gray-600">Total Bus</p>
+            <p class="text-lg sm:text-2xl font-bold text-gray-900">{{ transportStats.totalBuses.toLocaleString() }}</p>
+            <p class="text-xs text-green-600 mt-1">+{{ transportStats.busesGrowth }}% ce mois</p>
+          </div>
+          <div class="p-2 sm:p-3 bg-blue-100 rounded-full ml-2 sm:ml-0">
+            <svg class="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <p class="text-xs sm:text-sm font-medium text-gray-600">Total Routes</p>
+            <p class="text-lg sm:text-2xl font-bold text-gray-900">{{ transportStats.totalRoutes.toLocaleString() }}</p>
+            <p class="text-xs text-green-600 mt-1">+{{ transportStats.routesGrowth }}% ce mois</p>
+          </div>
+          <div class="p-2 sm:p-3 bg-green-100 rounded-full ml-2 sm:ml-0">
+            <svg class="w-4 h-4 sm:w-6 sm:h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <p class="text-xs sm:text-sm font-medium text-gray-600">Total Réservations</p>
+            <p class="text-lg sm:text-2xl font-bold text-gray-900">{{ transportStats.totalBookings.toLocaleString() }}</p>
+            <p class="text-xs text-green-600 mt-1">+{{ transportStats.bookingsGrowth }}% ce mois</p>
+          </div>
+          <div class="p-2 sm:p-3 bg-purple-100 rounded-full ml-2 sm:ml-0">
+            <svg class="w-4 h-4 sm:w-6 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <p class="text-xs sm:text-sm font-medium text-gray-600">Revenu du Jour</p>
+            <p class="text-lg sm:text-2xl font-bold text-gray-900">{{ formatCurrency(transportStats.todayRevenue) }}</p>
+            <p class="text-xs text-green-600 mt-1">+{{ transportStats.todayGrowth }}% vs hier</p>
+          </div>
+          <div class="p-2 sm:p-3 bg-orange-100 rounded-full ml-2 sm:ml-0">
+            <svg class="w-4 h-4 sm:w-6 sm:h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <p class="text-xs sm:text-sm font-medium text-gray-600">Revenu Mensuel</p>
+            <p class="text-lg sm:text-2xl font-bold text-gray-900">{{ formatCurrency(transportStats.monthlyRevenue) }}</p>
+            <p class="text-xs text-green-600 mt-1">+{{ transportStats.monthlyGrowth }}% ce mois</p>
+          </div>
+          <div class="p-2 sm:p-3 bg-red-100 rounded-full ml-2 sm:ml-0">
+            <svg class="w-4 h-4 sm:w-6 sm:h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Team Performance Chart -->
+      <!-- Revenue Chart -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold mb-4">Performance des Équipes</h3>
+        <h3 class="text-lg font-semibold mb-4">Revenus des 7 derniers jours</h3>
         <div class="h-64">
-          <canvas ref="teamChartCanvas"></canvas>
+          <canvas ref="revenueChart"></canvas>
         </div>
       </div>
 
-      <!-- Task Completion Chart -->
+      <!-- Bus Utilization Chart -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold mb-4">Taux de Complétion des Tâches</h3>
+        <h3 class="text-lg font-semibold mb-4">Taux d'Utilisation des Bus</h3>
         <div class="h-64">
-          <canvas ref="taskChart"></canvas>
+          <canvas ref="busUtilizationChart"></canvas>
         </div>
       </div>
     </div>
@@ -274,6 +353,8 @@ const taskChart = ref<HTMLCanvasElement | null>(null)
 const departmentChart = ref<HTMLCanvasElement | null>(null)
 const projectChart = ref<HTMLCanvasElement | null>(null)
 const resourceChart = ref<HTMLCanvasElement | null>(null)
+const revenueChart = ref<HTMLCanvasElement | null>(null)
+const busUtilizationChart = ref<HTMLCanvasElement | null>(null)
 
 // Manager statistics
 const managerStats = reactive({
@@ -484,5 +565,88 @@ onMounted(() => {
       }
     })
   }
+
+  // Revenue Chart
+  const revenueCanvas = revenueChart.value
+  if (revenueCanvas) {
+    new Chart(revenueCanvas, {
+      type: 'line',
+      data: {
+        labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+        datasets: [{
+          label: 'Revenus (FCFA)',
+          data: [450000, 520000, 480000, 610000, 580000, 720000, 690000],
+          borderColor: 'rgba(59, 130, 246, 1)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        }
+      }
+    })
+  }
+
+  // Bus Utilization Chart
+  const busUtilizationCanvas = busUtilizationChart.value
+  if (busUtilizationCanvas) {
+    new Chart(busUtilizationCanvas, {
+      type: 'bar',
+      data: {
+        labels: ['Bus 1', 'Bus 2', 'Bus 3', 'Bus 4', 'Bus 5'],
+        datasets: [{
+          label: 'Taux d\'utilisation (%)',
+          data: [85, 92, 78, 88, 95],
+          backgroundColor: [
+            'rgba(34, 197, 94, 0.8)',
+            'rgba(34, 197, 94, 0.8)',
+            'rgba(251, 146, 60, 0.8)',
+            'rgba(34, 197, 94, 0.8)',
+            'rgba(34, 197, 94, 0.8)'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        }
+      }
+    })
+  }
 })
+
+// Transport statistics data
+const transportStats = ref({
+  totalBuses: 25,
+  totalRoutes: 18,
+  totalBookings: 1247,
+  todayRevenue: 185000,
+  monthlyRevenue: 2847500,
+  busesGrowth: 8.5,
+  routesGrowth: 12.3,
+  bookingsGrowth: 15.7,
+  todayGrowth: 5.2,
+  monthlyGrowth: 18.9
+})
+
+// Format currency function
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'XOF',
+    minimumFractionDigits: 0
+  }).format(amount)
+}
 </script>

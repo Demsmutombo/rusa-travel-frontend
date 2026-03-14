@@ -2,22 +2,22 @@
   <div class="space-y-6">
     <!-- Header -->
     <div>
-      <h1 class="text-3xl font-bold">Gestion des Équipes</h1>
-      <p class="text-gray-600 mt-1">Supervision et gestion du personnel de la plateforme</p>
+      <h1 class="text-3xl font-bold">Rusa Travel - Gestion des Bus</h1>
+      <p class="text-gray-600 mt-1">Gestion de la flotte de bus de transport</p>
     </div>
 
-    <!-- Team Stats -->
+    <!-- Bus Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Total Employés</p>
-            <p class="text-2xl font-bold text-gray-900">{{ teamStats.totalEmployees }}</p>
-            <p class="text-xs text-green-600 mt-1">+8 ce mois</p>
+            <p class="text-sm font-medium text-gray-600">Total Bus</p>
+            <p class="text-2xl font-bold text-gray-900">{{ busStats.totalBuses }}</p>
+            <p class="text-xs text-green-600 mt-1">+2 ce mois</p>
           </div>
           <div class="p-3 bg-blue-100 rounded-full">
             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
             </svg>
           </div>
         </div>
@@ -26,12 +26,27 @@
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Équipes Actives</p>
-            <p class="text-2xl font-bold text-gray-900">{{ teamStats.activeTeams }}</p>
-            <p class="text-xs text-green-600 mt-1">+2 cette semaine</p>
+            <p class="text-sm font-medium text-gray-600">Bus Actifs</p>
+            <p class="text-2xl font-bold text-gray-900">{{ busStats.activeBuses }}</p>
+            <p class="text-xs text-green-600 mt-1">En service</p>
           </div>
           <div class="p-3 bg-green-100 rounded-full">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Capacité Totale</p>
+            <p class="text-2xl font-bold text-gray-900">{{ busStats.totalCapacity }}</p>
+            <p class="text-xs text-gray-600 mt-1">Places</p>
+          </div>
+          <div class="p-3 bg-purple-100 rounded-full">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
@@ -41,23 +56,318 @@
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Taux Productivité</p>
-            <p class="text-2xl font-bold text-gray-900">{{ teamStats.productivityRate }}%</p>
-            <p class="text-xs text-green-600 mt-1">+5% ce mois</p>
+            <p class="text-sm font-medium text-gray-600">Taux Occupation</p>
+            <p class="text-2xl font-bold text-gray-900">{{ busStats.occupancyRate }}%</p>
+            <p class="text-xs text-green-600 mt-1">+3% ce mois</p>
           </div>
-          <div class="p-3 bg-yellow-100 rounded-full">
-            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          <div class="p-3 bg-orange-100 rounded-full">
+            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-gray-600">Satisfaction Équipe</p>
-            <p class="text-2xl font-bold text-gray-900">{{ teamStats.satisfaction }}%</p>
+    <!-- Bus Management -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold">Liste des Bus</h2>
+          <button 
+            @click="showAddBusModal = true"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Ajouter un Bus
+          </button>
+        </div>
+      </div>
+
+      <!-- Search and Filters -->
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex-1">
+            <input 
+              v-model="searchQuery"
+              type="text" 
+              placeholder="Rechercher un bus..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <select v-model="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg">
+            <option value="">Tous les statuts</option>
+            <option value="active">Actif</option>
+            <option value="inactive">Inactif</option>
+            <option value="maintenance">Maintenance</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Bus List -->
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Immatriculation</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modèle</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Capacité</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chauffeur</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr v-for="bus in filteredBuses" :key="bus.id">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ bus.plateNumber }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ bus.model }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ bus.capacity }} places</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span :class="getStatusClass(bus.status)" class="px-2 py-1 text-xs font-semibold rounded-full">
+                  {{ getStatusLabel(bus.status) }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ bus.driver || 'Non assigné' }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <button @click="editBus(bus)" class="text-blue-600 hover:text-blue-900 mr-3">Modifier</button>
+                <button @click="deleteBus(bus.id)" class="text-red-600 hover:text-red-900">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add/Edit Bus Modal -->
+    <div v-if="showAddBusModal || editingBus" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md">
+        <h3 class="text-lg font-semibold mb-4">
+          {{ editingBus ? 'Modifier le Bus' : 'Ajouter un Bus' }}
+        </h3>
+        <form @submit.prevent="saveBus">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Immatriculation</label>
+              <input 
+                v-model="busForm.plateNumber"
+                type="text" 
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Modèle</label>
+              <input 
+                v-model="busForm.model"
+                type="text" 
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Capacité</label>
+              <input 
+                v-model.number="busForm.capacity"
+                type="number" 
+                required
+                min="1"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Chauffeur</label>
+              <input 
+                v-model="busForm.driver"
+                type="text" 
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
+              <select v-model="busForm.status" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                <option value="active">Actif</option>
+                <option value="inactive">Inactif</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex justify-end space-x-3 mt-6">
+            <button 
+              type="button"
+              @click="closeBusModal"
+              class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              {{ editingBus ? 'Mettre à jour' : 'Ajouter' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, reactive } from 'vue'
+
+defineOptions({
+  name: 'BusManagement'
+})
+
+interface Bus {
+  id: number
+  plateNumber: string
+  model: string
+  capacity: number
+  status: 'active' | 'inactive' | 'maintenance'
+  driver?: string
+}
+
+// Bus statistics
+const busStats = reactive({
+  totalBuses: 25,
+  activeBuses: 22,
+  totalCapacity: 550,
+  occupancyRate: 78
+})
+
+// Bus data
+const buses = ref<Bus[]>([
+  { id: 1, plateNumber: 'CD-123-AB', model: 'Mercedes-Benz Tourismo', capacity: 45, status: 'active', driver: 'Jean Mutombo' },
+  { id: 2, plateNumber: 'CD-456-CD', model: 'Volvo B9R', capacity: 50, status: 'active', driver: 'Pierre Lumumba' },
+  { id: 3, plateNumber: 'CD-789-EF', model: 'Scania K-series', capacity: 55, status: 'maintenance', driver: 'Marie Kabila' },
+  { id: 4, plateNumber: 'CD-012-GH', model: 'MAN Lion\'s Coach', capacity: 48, status: 'active', driver: 'Thomas Tshisekedi' },
+  { id: 5, plateNumber: 'CD-345-IJ', model: 'Setra S517 HD', capacity: 52, status: 'inactive', driver: '' }
+])
+
+// Search and filter
+const searchQuery = ref('')
+const statusFilter = ref('')
+
+// Modal state
+const showAddBusModal = ref(false)
+const editingBus = ref<Bus | null>(null)
+
+// Bus form
+const busForm = reactive({
+  plateNumber: '',
+  model: '',
+  capacity: 0,
+  driver: '',
+  status: 'active' as 'active' | 'inactive' | 'maintenance'
+})
+
+// Computed filtered buses
+const filteredBuses = computed(() => {
+  return buses.value.filter(bus => {
+    const matchesSearch = !searchQuery.value || 
+      bus.plateNumber.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      bus.model.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      (bus.driver && bus.driver.toLowerCase().includes(searchQuery.value.toLowerCase()))
+    
+    const matchesStatus = !statusFilter.value || bus.status === statusFilter.value
+    
+    return matchesSearch && matchesStatus
+  })
+})
+
+// Status helpers
+const getStatusClass = (status: string) => {
+  switch (status) {
+    case 'active':
+      return 'bg-green-100 text-green-800'
+    case 'inactive':
+      return 'bg-gray-100 text-gray-800'
+    case 'maintenance':
+      return 'bg-yellow-100 text-yellow-800'
+    default:
+      return 'bg-gray-100 text-gray-800'
+  }
+}
+
+const getStatusLabel = (status: string) => {
+  switch (status) {
+    case 'active':
+      return 'Actif'
+    case 'inactive':
+      return 'Inactif'
+    case 'maintenance':
+      return 'Maintenance'
+    default:
+      return status
+  }
+}
+
+// CRUD operations
+const editBus = (bus: Bus) => {
+  editingBus.value = bus
+  busForm.plateNumber = bus.plateNumber
+  busForm.model = bus.model
+  busForm.capacity = bus.capacity
+  busForm.driver = bus.driver || ''
+  busForm.status = bus.status
+}
+
+const deleteBus = (id: number) => {
+  if (confirm('Êtes-vous sûr de vouloir supprimer ce bus ?')) {
+    buses.value = buses.value.filter(bus => bus.id !== id)
+    updateStats()
+  }
+}
+
+const saveBus = () => {
+  if (editingBus.value) {
+    // Update existing bus
+    const index = buses.value.findIndex(bus => bus.id === editingBus.value!.id)
+    if (index !== -1) {
+      buses.value[index] = {
+        ...buses.value[index],
+        plateNumber: busForm.plateNumber,
+        model: busForm.model,
+        capacity: busForm.capacity,
+        driver: busForm.driver,
+        status: busForm.status
+      }
+    }
+  } else {
+    // Add new bus
+    const newBus: Bus = {
+      id: Math.max(...buses.value.map(b => b.id)) + 1,
+      plateNumber: busForm.plateNumber,
+      model: busForm.model,
+      capacity: busForm.capacity,
+      driver: busForm.driver,
+      status: busForm.status
+    }
+    buses.value.push(newBus)
+  }
+  
+  updateStats()
+  closeBusModal()
+}
+
+const closeBusModal = () => {
+  showAddBusModal.value = false
+  editingBus.value = null
+  
+  // Reset form
+  busForm.plateNumber = ''
+  busForm.model = ''
+  busForm.capacity = 0
+  busForm.driver = ''
+  busForm.status = 'active'
+}
+
+const updateStats = () => {
+  busStats.totalBuses = buses.value.length
+  busStats.activeBuses = buses.value.filter(bus => bus.status === 'active').length
+  busStats.totalCapacity = buses.value.reduce((sum, bus) => sum + bus.capacity, 0)
+}
+</script>
             <p class="text-xs text-green-600 mt-1">+3% ce mois</p>
           </div>
           <div class="p-3 bg-purple-100 rounded-full">

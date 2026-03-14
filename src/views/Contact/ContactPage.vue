@@ -1,16 +1,27 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
+  <div class="min-h-screen">
+    <!-- Navigation -->
     <AppHeader />
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">
-            Contactez <span class="text-yellow-300">Rusa Travel</span>
+    <!-- Hero Section - Contact -->
+    <section class="relative h-96 flex items-center justify-center overflow-hidden">
+      <!-- Background Image -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://cdn.pixabay.com/photo/2017/03/27/14/56/auto-2179220_1280.jpg" 
+          alt="Contactez Rusa Travel" 
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+      </div>
+      
+      <!-- Content -->
+      <div class="relative z-10 text-center text-white px-4">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Contactez <span class="text-yellow-400">Rusa Travel</span>
           </h1>
-          <p class="text-xl md:text-2xl text-blue-100">
+          <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
             Notre équipe est à votre disposition 24/7 pour répondre à toutes vos questions
           </p>
         </div>
@@ -18,13 +29,13 @@
     </section>
 
     <!-- Contact Form and Info -->
-    <section class="py-16">
-      <div class="container mx-auto px-4">
+    <section class="py-12 sm:py-16 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-          <div class="grid md:grid-cols-2 gap-12">
+          <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
             <!-- Contact Form -->
-            <div class="bg-white rounded-lg shadow-lg p-8">
-              <h2 class="text-2xl font-bold text-gray-900 mb-6">Envoyez-nous un message</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-6 lg:p-8">
+              <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Envoyez-nous un message</h2>
               
               <form @submit.prevent="handleSubmit" class="space-y-6">
                 <div>
@@ -36,7 +47,7 @@
                     v-model="formData.name"
                     type="text"
                     required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     placeholder="Votre nom complet"
                   />
                 </div>
@@ -50,8 +61,8 @@
                     v-model="formData.email"
                     type="email"
                     required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="votre@email.com"
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="votre.email@example.com"
                   />
                 </div>
 

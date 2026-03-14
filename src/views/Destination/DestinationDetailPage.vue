@@ -1,7 +1,11 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <AppHeader />
+    <AppHeader 
+      :is-mobile-menu-open="isMobileMenuOpen"
+      @toggle-mobile-menu="toggleMobileMenu"
+      @handle-logout="handleLogout"
+    />
 
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-br from-blue-600 to-blue-800 text-white py-12 sm:py-16 lg:py-20">
@@ -34,7 +38,7 @@
       
       <!-- Background Pattern -->
       <div class="absolute inset-0 opacity-10 pointer-events-none -z-10">
-        <div class="absolute inset-0 bg-repeat" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzR2LTRoLTJ2NGgtNHYyaDR2NGgydi00aDR2LTJoLTR6bTAtMzBWMGgtMnY0aC00djJoNHY0aDJWNmg0VjRoLTR6TTYgMzR2LTRINGg0djBIMHYyaDR2NGgydi00aDR2LTJINHpNNCA0VjBINGg0SDAwdjJoNHY0aDJWNmg0VjRINnoiLz48L2c+PC9nPjwvZz48L3N2Zz4='); background-size: 60px 60px;"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
       </div>
     </section>
 
@@ -256,11 +260,29 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import AppHeader from '@/components/common/AppHeader.vue'
 
 defineOptions({
   name: 'DestinationDetailPage'
 })
+
+const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
+
+// Mobile menu state
+const isMobileMenuOpen = ref(false)
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/')
+  isMobileMenuOpen.value = false
+}
 
 interface Service {
   name: string

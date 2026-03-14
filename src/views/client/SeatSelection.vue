@@ -1,63 +1,401 @@
 <template>
-  <div class="space-y-6">
-    <!-- Header -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <h1 class="text-2xl font-bold">Sélection des sièges</h1>
-          <p class="text-gray-600 mt-1">
-            {{ bookingData?.bus?.agency }} • {{ formatDate(bookingData?.date) }}
-          </p>
-        </div>
-        <button
-          @click="$router.go(-1)"
-          class="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
-        >
-          Retour
-        </button>
-      </div>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <AppHeader />
 
-      <!-- Trip Summary -->
-      <div class="bg-blue-50 rounded-lg p-4">
-        <div class="flex items-center justify-between">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Header -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center justify-between mb-6">
           <div>
-            <p class="font-semibold">{{ bookingData?.bus?.from }} → {{ bookingData?.bus?.to }}</p>
-            <p class="text-sm text-gray-600">
-              {{ bookingData?.bus?.departureTime }} - {{ bookingData?.bus?.arrivalTime }}
+            <h1 class="text-2xl font-bold">Sélection des sièges</h1>
+            <p class="text-gray-600 mt-1">
+              {{ selectedTrip?.company }} • {{ formatDate(selectedTrip?.date) }}
             </p>
           </div>
-          <div class="text-right">
-            <p class="text-sm text-gray-600">{{ selectedSeats.length }} sièges sélectionnés</p>
-            <p class="font-semibold">{{ formatCurrency(bookingData?.bus?.price * selectedSeats.length) }}</p>
+          <button
+            @click="$router.go(-1)"
+            class="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
+          >
+            Retour
+          </button>
+        </div>
+
+        <!-- Trip Summary -->
+        <div class="bg-blue-50 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="font-semibold">{{ selectedTrip?.departure }} → {{ selectedTrip?.destination }}</p>
+              <p class="text-sm text-gray-600">
+                {{ selectedTrip?.departureTime }} - {{ selectedTrip?.arrivalTime }} • {{ selectedTrip?.duration }}
+              </p>
+              <p class="text-sm text-gray-600">Bus: {{ selectedTrip?.busType }}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-gray-600">{{ selectedSeats.length }} sièges sélectionnés</p>
+              <p class="font-semibold text-lg">{{ formatCurrency(selectedTrip?.price * selectedSeats.length) }}</p>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Seat Selection -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-6">Choisissez vos sièges</h2>
+        
+        <!-- Legend -->
+        <div class="flex items-center justify-center space-x-6 mb-8">
+          <div class="flex items-center">
+            <div class="w-8 h-8 bg-gray-200 rounded border-2 border-gray-300 mr-2"></div>
+            <span class="text-sm">Disponible</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-8 h-8 bg-blue-600 rounded border-2 border-blue-700 mr-2"></div>
+            <span class="text-sm">Sélectionné</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-8 h-8 bg-red-500 rounded border-2 border-red-600 mr-2"></div>
+            <span class="text-sm">Occupé</span>
+          </div>
+        </div>
+        
+        <!-- Bus Layout -->
+        <div class="max-w-4xl mx-auto">
+          <!-- Driver Area -->
+          <div class="text-center mb-8">
+            <div class="inline-block bg-gray-300 rounded-lg px-6 py-3 font-medium">
+              Chauffeur
+            </div>
+          </div>
+
+          <!-- Seats Grid -->
+          <div class="space-y-4">
+            <div v-for="row in seatLayout" :key="row.rowNumber" class="flex items-center justify-center space-x-4">
+              <!-- Row Number -->
+              <div class="w-8 text-center font-medium text-gray-600">
+                {{ row.rowNumber }}
+              </div>
+              
+              <!-- Seats -->
+              <div class="flex items-center space-x-2">
+                <div 
+                  v-for="seat in row.seats" 
+                  :key="seat.number"
+                  @click="toggleSeat(seat)"
+                  class="relative"
+                >
+                  <button
+                    :class="getSeatClass(seat)"
+                    :disabled="seat.isOccupied"
+                    class="w-10 h-10 rounded-lg border-2 font-medium transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {{ seat.number }}
+                  </button>
+                  <!-- Seat indicators -->
+                  <div v-if="seat.isVIP" class="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full"></div>
+                  <div v-if="seat.hasWindow" class="absolute -top-1 -left-1 w-2 h-2 bg-blue-400 rounded-full"></div>
+                </div>
+              </div>
+
+              <!-- Row Number (right side) -->
+              <div class="w-8 text-center font-medium text-gray-600">
+                {{ row.rowNumber }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected Seats & Payment -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-semibold mb-4">Détails de la réservation</h3>
+        
+        <!-- Selected Seats List -->
+        <div v-if="selectedSeats.length > 0" class="mb-6">
+          <h4 class="font-medium mb-2">Sièges sélectionnés:</h4>
+          <div class="flex flex-wrap gap-2">
+            <span 
+              v-for="seat in selectedSeats" 
+              :key="seat.number"
+              class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+            >
+              Siège {{ seat.number }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Passenger Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
+            <input 
+              v-model="passengerInfo.name"
+              type="text" 
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Jean Kabila"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input 
+              v-model="passengerInfo.email"
+              type="email" 
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="jean.kabila@email.com"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+            <input 
+              v-model="passengerInfo.phone"
+              type="tel" 
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="+243 812 345 678"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">CNI/Passeport</label>
+            <input 
+              v-model="passengerInfo.idNumber"
+              type="text" 
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="CD-12345678901234"
+            />
+          </div>
+        </div>
+
+        <!-- Price Summary -->
+        <div class="border-t pt-4 mb-6">
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Prix par siège:</span>
+              <span>{{ formatCurrency(selectedTrip?.price) }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Nombre de sièges:</span>
+              <span>{{ selectedSeats.length }}</span>
+            </div>
+            <div class="flex justify-between font-semibold text-lg">
+              <span>Total:</span>
+              <span class="text-blue-600">{{ formatCurrency(selectedTrip?.price * selectedSeats.length) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button
+            @click="$router.go(-1)"
+            class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium"
+          >
+            Retour
+          </button>
+          <button
+            @click="proceedToPayment"
+            :disabled="selectedSeats.length === 0 || !isFormValid"
+            class="flex-1 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Procéder au paiement
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</template>
+        <script setup lang="ts">
+import { ref, computed, reactive, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-    <!-- Seat Selection -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 class="text-xl font-semibold mb-6">Choisissez vos sièges</h2>
+defineOptions({
+  name: 'SeatSelection'
+})
+
+const route = useRoute()
+const router = useRouter()
+
+interface Seat {
+  number: string
+  isOccupied: boolean
+  isSelected: boolean
+  isVIP: boolean
+  hasWindow: boolean
+  row: number
+  col: number
+}
+
+interface SeatRow {
+  rowNumber: string
+  seats: Seat[]
+}
+
+interface Trip {
+  id: number
+  departure: string
+  destination: string
+  departureTime: string
+  arrivalTime: string
+  date: string
+  duration: string
+  price: number
+  busType: string
+  company: string
+}
+
+// Selected trip (would come from route params or state)
+const selectedTrip = ref<Trip>({
+  id: 1,
+  departure: 'Kinshasa',
+  destination: 'Lubumbashi',
+  departureTime: '08:00',
+  arrivalTime: '16:30',
+  date: '2024-03-20',
+  duration: '8h 30min',
+  price: 15000,
+  busType: 'VIP',
+  company: 'Rusa Travel'
+})
+
+// Seat layout
+const seatLayout = ref<SeatRow[]>([])
+
+// Selected seats
+const selectedSeats = ref<Seat[]>([])
+
+// Passenger information
+const passengerInfo = reactive({
+  name: '',
+  email: '',
+  phone: '',
+  idNumber: ''
+})
+
+// Computed properties
+const isFormValid = computed(() => {
+  return passengerInfo.name && 
+         passengerInfo.email && 
+         passengerInfo.phone && 
+         passengerInfo.idNumber &&
+         selectedSeats.value.length > 0
+})
+
+// Helper functions
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'XOF',
+    minimumFractionDigits: 0
+  }).format(amount)
+}
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
+}
+
+const getSeatClass = (seat: Seat) => {
+  if (seat.isOccupied) {
+    return 'bg-red-500 border-red-600 text-white cursor-not-allowed'
+  }
+  if (seat.isSelected) {
+    return 'bg-blue-600 border-blue-700 text-white'
+  }
+  return 'bg-gray-200 border-gray-300 hover:bg-gray-300 text-gray-700'
+}
+
+// Seat management functions
+const generateSeatLayout = () => {
+  const rows = 12
+  const seatsPerRow = 4
+  const layout: SeatRow[] = []
+  
+  for (let i = 1; i <= rows; i++) {
+    const rowSeats: Seat[] = []
+    
+    for (let j = 1; j <= seatsPerRow; j++) {
+      const seatNumber = `${i}${j === 1 ? 'A' : j === 2 ? 'B' : j === 3 ? 'C' : 'D'}`
+      const isOccupied = Math.random() < 0.3 // 30% chance of being occupied
+      const isVIP = i <= 2 || i >= 11 // First 2 and last 2 rows are VIP
+      const hasWindow = j === 1 || j === seatsPerRow // Window seats
       
-      <!-- Bus Layout -->
-      <div class="max-w-4xl mx-auto">
-        <!-- Driver Area -->
-        <div class="text-center mb-8">
-          <div class="inline-block bg-gray-300 rounded-lg px-6 py-3 font-medium">
-            Chauffeur
-          </div>
-        </div>
+      rowSeats.push({
+        number: seatNumber,
+        isOccupied,
+        isSelected: false,
+        isVIP,
+        hasWindow,
+        row: i,
+        col: j
+      })
+    }
+    
+    layout.push({
+      rowNumber: i.toString(),
+      seats: rowSeats
+    })
+  }
+  
+  seatLayout.value = layout
+}
 
-        <!-- Seats Grid -->
-        <div class="bg-gray-50 rounded-lg p-6 mb-6">
-          <div class="grid grid-cols-12 gap-2 max-w-3xl mx-auto">
-            <!-- Row numbers -->
-            <div class="col-span-1"></div>
-            <div v-for="col in 10" :key="'header-' + col" class="text-center text-xs font-medium text-gray-600">
-              {{ col }}
-            </div>
+const toggleSeat = (seat: Seat) => {
+  if (seat.isOccupied) return
+  
+  if (seat.isSelected) {
+    // Deselect seat
+    seat.isSelected = false
+    selectedSeats.value = selectedSeats.value.filter(s => s.number !== seat.number)
+  } else {
+    // Select seat
+    seat.isSelected = true
+    selectedSeats.value.push(seat)
+  }
+}
 
-            <!-- Seat rows -->
-            <template v-for="row in 4" :key="row">
+// Actions
+const proceedToPayment = () => {
+  if (!isFormValid.value) {
+    alert('Veuillez remplir toutes les informations et sélectionner au moins un siège')
+    return
+  }
+  
+  // Create booking object
+  const booking = {
+    trip: selectedTrip.value,
+    seats: selectedSeats.value,
+    passenger: passengerInfo,
+    totalPrice: selectedTrip.value.price * selectedSeats.value.length,
+    bookingId: `BK${Date.now()}`
+  }
+  
+  console.log('Proceeding to payment with booking:', booking)
+  
+  // In a real app, this would navigate to payment page
+  // router.push({ name: 'payment', params: { bookingId: booking.bookingId } })
+  
+  // For demo, show confirmation
+  alert(`Réservation confirmée! ID: ${booking.bookingId}\nTotal: ${formatCurrency(booking.totalPrice)}`)
+}
+
+onMounted(() => {
+  // Get trip data from route or state
+  const tripId = route.params.tripId
+  if (tripId) {
+    // Load trip data
+    console.log('Loading trip data for ID:', tripId)
+  }
+  
+  // Generate seat layout
+  generateSeatLayout()
+})
+</script>
               <div class="flex items-center justify-center text-sm font-medium text-gray-600">
                 {{ String.fromCharCode(65 + row - 1) }}
               </div>
@@ -319,7 +657,7 @@ onMounted(() => {
   if (savedBookingData) {
     bookingData.value = JSON.parse(savedBookingData)
   } else {
-    router.push('/client/search')
+    router.push('/client/search-trips')
   }
 })
 </script>

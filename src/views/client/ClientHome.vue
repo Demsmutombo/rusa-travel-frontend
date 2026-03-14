@@ -13,7 +13,7 @@
           </div>
           <div class="flex items-center space-x-4">
             <router-link 
-              to="/search" 
+              to="/client/search-trips" 
               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
             >
               Réserver un trajet
@@ -42,7 +42,7 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
               <router-link
-                to="/search"
+                to="/client/search-trips"
                 class="px-6 py-3 bg-yellow-400 text-blue-900 rounded-lg hover:bg-yellow-300 font-semibold transition shadow-lg"
               >
                 <span class="flex items-center space-x-2">
@@ -85,7 +85,7 @@
             </div>
             <h4 class="font-semibold text-gray-900 mb-2">Réserver</h4>
             <p class="text-sm text-gray-600 mb-4">Trouver et réserver vos prochains trajets</p>
-            <router-link to="/search" class="text-blue-600 hover:text-blue-700 font-medium text-sm">
+            <router-link to="/client/search-trips" class="text-blue-600 hover:text-blue-700 font-medium text-sm">
               Commencer →
             </router-link>
           </div>

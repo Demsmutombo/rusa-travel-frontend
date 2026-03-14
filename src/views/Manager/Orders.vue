@@ -2,22 +2,23 @@
   <div class="space-y-6">
     <!-- Header -->
     <div>
-      <h1 class="text-3xl font-bold">Gestion des Commandes</h1>
-      <p class="text-gray-600 mt-1">Suivi et gestion de toutes les commandes de la plateforme</p>
+      <h1 class="text-3xl font-bold">Rusa Travel - Gestion des Routes</h1>
+      <p class="text-gray-600 mt-1">Gestion des routes et tarifs de transport</p>
     </div>
 
-    <!-- Stats Overview -->
+    <!-- Route Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Total Commandes</p>
-            <p class="text-2xl font-bold text-gray-900">847</p>
-            <p class="text-xs text-green-600 mt-1">+22% ce mois</p>
+            <p class="text-sm font-medium text-gray-600">Total Routes</p>
+            <p class="text-2xl font-bold text-gray-900">{{ routeStats.totalRoutes }}</p>
+            <p class="text-xs text-green-600 mt-1">+3 ce mois</p>
           </div>
           <div class="p-3 bg-blue-100 rounded-full">
             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M4 15h8a2 2 0 002 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2a2 2 0 012-2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
           </div>
         </div>
@@ -26,8 +27,373 @@
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Livrées</p>
-            <p class="text-2xl font-bold text-gray-900">623</p>
+            <p class="text-sm font-medium text-gray-600">Routes Actives</p>
+            <p class="text-2xl font-bold text-gray-900">{{ routeStats.activeRoutes }}</p>
+            <p class="text-xs text-green-600 mt-1">En service</p>
+          </div>
+          <div class="p-3 bg-green-100 rounded-full">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Prix Moyen</p>
+            <p class="text-2xl font-bold text-gray-900">{{ formatCurrency(routeStats.averagePrice) }}</p>
+            <p class="text-xs text-gray-600 mt-1">Par trajet</p>
+          </div>
+          <div class="p-3 bg-purple-100 rounded-full">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Distance Totale</p>
+            <p class="text-2xl font-bold text-gray-900">{{ routeStats.totalDistance }}km</p>
+            <p class="text-xs text-green-600 mt-1">+150km ce mois</p>
+          </div>
+          <div class="p-3 bg-orange-100 rounded-full">
+            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Route Management -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold">Liste des Routes</h2>
+          <button 
+            @click="showAddRouteModal = true"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Ajouter une Route
+          </button>
+        </div>
+      </div>
+
+      <!-- Search and Filters -->
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex-1">
+            <input 
+              v-model="searchQuery"
+              type="text" 
+              placeholder="Rechercher une route..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <select v-model="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg">
+            <option value="">Tous les statuts</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Route List -->
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Départ</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destination</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Distance</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Durée</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr v-for="route in filteredRoutes" :key="route.id">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ route.departure }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ route.destination }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ route.distance }}km</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ formatCurrency(route.price) }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ route.duration }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span :class="getStatusClass(route.status)" class="px-2 py-1 text-xs font-semibold rounded-full">
+                  {{ getStatusLabel(route.status) }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <button @click="editRoute(route)" class="text-blue-600 hover:text-blue-900 mr-3">Modifier</button>
+                <button @click="deleteRoute(route.id)" class="text-red-600 hover:text-red-900">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add/Edit Route Modal -->
+    <div v-if="showAddRouteModal || editingRoute" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md">
+        <h3 class="text-lg font-semibold mb-4">
+          {{ editingRoute ? 'Modifier la Route' : 'Ajouter une Route' }}
+        </h3>
+        <form @submit.prevent="saveRoute">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Ville de Départ</label>
+              <input 
+                v-model="routeForm.departure"
+                type="text" 
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Ville de Destination</label>
+              <input 
+                v-model="routeForm.destination"
+                type="text" 
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Distance (km)</label>
+              <input 
+                v-model.number="routeForm.distance"
+                type="number" 
+                required
+                min="1"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Prix (FCFA)</label>
+              <input 
+                v-model.number="routeForm.price"
+                type="number" 
+                required
+                min="0"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Durée</label>
+              <input 
+                v-model="routeForm.duration"
+                type="text" 
+                placeholder="ex: 2h30min"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
+              <select v-model="routeForm.status" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex justify-end space-x-3 mt-6">
+            <button 
+              type="button"
+              @click="closeRouteModal"
+              class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              {{ editingRoute ? 'Mettre à jour' : 'Ajouter' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, reactive } from 'vue'
+
+defineOptions({
+  name: 'RouteManagement'
+})
+
+interface Route {
+  id: number
+  departure: string
+  destination: string
+  distance: number
+  price: number
+  duration: string
+  status: 'active' | 'inactive'
+}
+
+// Route statistics
+const routeStats = reactive({
+  totalRoutes: 18,
+  activeRoutes: 15,
+  averagePrice: 8500,
+  totalDistance: 2450
+})
+
+// Route data
+const routes = ref<Route[]>([
+  { id: 1, departure: 'Kinshasa', destination: 'Lubumbashi', distance: 1650, price: 15000, duration: '24h', status: 'active' },
+  { id: 2, departure: 'Kinshasa', destination: 'Kisangani', distance: 1120, price: 10000, duration: '18h', status: 'active' },
+  { id: 3, departure: 'Kinshasa', destination: 'Matadi', distance: 380, price: 4500, duration: '6h', status: 'active' },
+  { id: 4, departure: 'Lubumbashi', destination: 'Kisangani', distance: 980, price: 9000, duration: '16h', status: 'active' },
+  { id: 5, departure: 'Kinshasa', destination: 'Bukavu', distance: 1550, price: 14000, duration: '22h', status: 'inactive' }
+])
+
+// Search and filter
+const searchQuery = ref('')
+const statusFilter = ref('')
+
+// Modal state
+const showAddRouteModal = ref(false)
+const editingRoute = ref<Route | null>(null)
+
+// Route form
+const routeForm = reactive({
+  departure: '',
+  destination: '',
+  distance: 0,
+  price: 0,
+  duration: '',
+  status: 'active' as 'active' | 'inactive'
+})
+
+// Computed filtered routes
+const filteredRoutes = computed(() => {
+  return routes.value.filter(route => {
+    const matchesSearch = !searchQuery.value || 
+      route.departure.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      route.destination.toLowerCase().includes(searchQuery.value.toLowerCase())
+    
+    const matchesStatus = !statusFilter.value || route.status === statusFilter.value
+    
+    return matchesSearch && matchesStatus
+  })
+})
+
+// Status helpers
+const getStatusClass = (status: string) => {
+  switch (status) {
+    case 'active':
+      return 'bg-green-100 text-green-800'
+    case 'inactive':
+      return 'bg-gray-100 text-gray-800'
+    default:
+      return 'bg-gray-100 text-gray-800'
+  }
+}
+
+const getStatusLabel = (status: string) => {
+  switch (status) {
+    case 'active':
+      return 'Active'
+    case 'inactive':
+      return 'Inactive'
+    default:
+      return status
+  }
+}
+
+// Format currency
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'XOF',
+    minimumFractionDigits: 0
+  }).format(amount)
+}
+
+// CRUD operations
+const editRoute = (route: Route) => {
+  editingRoute.value = route
+  routeForm.departure = route.departure
+  routeForm.destination = route.destination
+  routeForm.distance = route.distance
+  routeForm.price = route.price
+  routeForm.duration = route.duration
+  routeForm.status = route.status
+}
+
+const deleteRoute = (id: number) => {
+  if (confirm('Êtes-vous sûr de vouloir supprimer cette route ?')) {
+    routes.value = routes.value.filter(route => route.id !== id)
+    updateStats()
+  }
+}
+
+const saveRoute = () => {
+  if (editingRoute.value) {
+    // Update existing route
+    const index = routes.value.findIndex(route => route.id === editingRoute.value!.id)
+    if (index !== -1) {
+      routes.value[index] = {
+        ...routes.value[index],
+        departure: routeForm.departure,
+        destination: routeForm.destination,
+        distance: routeForm.distance,
+        price: routeForm.price,
+        duration: routeForm.duration,
+        status: routeForm.status
+      }
+    }
+  } else {
+    // Add new route
+    const newRoute: Route = {
+      id: Math.max(...routes.value.map(r => r.id)) + 1,
+      departure: routeForm.departure,
+      destination: routeForm.destination,
+      distance: routeForm.distance,
+      price: routeForm.price,
+      duration: routeForm.duration,
+      status: routeForm.status
+    }
+    routes.value.push(newRoute)
+  }
+  
+  updateStats()
+  closeRouteModal()
+}
+
+const closeRouteModal = () => {
+  showAddRouteModal.value = false
+  editingRoute.value = null
+  
+  // Reset form
+  routeForm.departure = ''
+  routeForm.destination = ''
+  routeForm.distance = 0
+  routeForm.price = 0
+  routeForm.duration = ''
+  routeForm.status = 'active'
+}
+
+const updateStats = () => {
+  routeStats.totalRoutes = routes.value.length
+  routeStats.activeRoutes = routes.value.filter(route => route.status === 'active').length
+  routeStats.totalDistance = routes.value.reduce((sum, route) => sum + route.distance, 0)
+  routeStats.averagePrice = routes.value.length > 0 
+    ? routes.value.reduce((sum, route) => sum + route.price, 0) / routes.value.length 
+    : 0
+}
+</script>
             <p class="text-xs text-green-600 mt-1">+18% cette semaine</p>
           </div>
           <div class="p-3 bg-green-100 rounded-full">

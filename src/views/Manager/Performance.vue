@@ -2,22 +2,22 @@
   <div class="space-y-6">
     <!-- Header -->
     <div>
-      <h1 class="text-3xl font-bold">Performance Globale</h1>
-      <p class="text-gray-600 mt-1">Analyse des performances et indicateurs clés de la plateforme</p>
+      <h1 class="text-3xl font-bold">Rusa Travel - Planification des Trajets</h1>
+      <p class="text-gray-600 mt-1">Création et gestion des trajets programmés</p>
     </div>
 
-    <!-- Performance Overview -->
+    <!-- Trip Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Score Performance</p>
-            <p class="text-2xl font-bold text-gray-900">{{ performanceStats.overallScore }}/100</p>
-            <p class="text-xs text-green-600 mt-1">+8 ce mois</p>
+            <p class="text-sm font-medium text-gray-600">Trajets Aujourd'hui</p>
+            <p class="text-2xl font-bold text-gray-900">{{ tripStats.todayTrips }}</p>
+            <p class="text-xs text-green-600 mt-1">En cours</p>
           </div>
           <div class="p-3 bg-blue-100 rounded-full">
             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
         </div>
@@ -26,8 +26,510 @@
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-600">Efficacité Opérationnelle</p>
-            <p class="text-2xl font-bold text-gray-900">{{ performanceStats.operationalEfficiency }}%</p>
+            <p class="text-sm font-medium text-gray-600">Cette Semaine</p>
+            <p class="text-2xl font-bold text-gray-900">{{ tripStats.weeklyTrips }}</p>
+            <p class="text-xs text-green-600 mt-1">+12 vs semaine dernière</p>
+          </div>
+          <div class="p-3 bg-green-100 rounded-full">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Places Disponibles</p>
+            <p class="text-2xl font-bold text-gray-900">{{ tripStats.availableSeats }}</p>
+            <p class="text-xs text-gray-600 mt-1">Total</p>
+          </div>
+          <div class="p-3 bg-purple-100 rounded-full">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Taux Occupation</p>
+            <p class="text-2xl font-bold text-gray-900">{{ tripStats.occupancyRate }}%</p>
+            <p class="text-xs text-green-600 mt-1">+5% ce mois</p>
+          </div>
+          <div class="p-3 bg-orange-100 rounded-full">
+            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trip Management -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold">Liste des Trajets</h2>
+          <button 
+            @click="showAddTripModal = true"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Créer un Trajet
+          </button>
+        </div>
+      </div>
+
+      <!-- Search and Filters -->
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex-1">
+            <input 
+              v-model="searchQuery"
+              type="text" 
+              placeholder="Rechercher un trajet..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <select v-model="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg">
+            <option value="">Tous les statuts</option>
+            <option value="scheduled">Programmé</option>
+            <option value="in_progress">En cours</option>
+            <option value="completed">Terminé</option>
+            <option value="cancelled">Annulé</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Trip List -->
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trajet</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bus</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Départ</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Places</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chauffeur</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr v-for="trip in filteredTrips" :key="trip.id">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {{ trip.departure }} → {{ trip.destination }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ trip.busPlate }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ formatDate(trip.departureTime) }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ trip.availableSeats }}/{{ trip.totalSeats }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ trip.driver }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span :class="getStatusClass(trip.status)" class="px-2 py-1 text-xs font-semibold rounded-full">
+                  {{ getStatusLabel(trip.status) }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <button @click="editTrip(trip)" class="text-blue-600 hover:text-blue-900 mr-3">Modifier</button>
+                <button @click="deleteTrip(trip.id)" class="text-red-600 hover:text-red-900">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add/Edit Trip Modal -->
+    <div v-if="showAddTripModal || editingTrip" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md">
+        <h3 class="text-lg font-semibold mb-4">
+          {{ editingTrip ? 'Modifier le Trajet' : 'Créer un Trajet' }}
+        </h3>
+        <form @submit.prevent="saveTrip">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Route</label>
+              <select v-model="tripForm.routeId" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                <option value="">Sélectionner une route</option>
+                <option v-for="route in routes" :key="route.id" :value="route.id">
+                  {{ route.departure }} → {{ route.destination }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Bus</label>
+              <select v-model="tripForm.busId" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                <option value="">Sélectionner un bus</option>
+                <option v-for="bus in availableBuses" :key="bus.id" :value="bus.id">
+                  {{ bus.plateNumber }} ({{ bus.capacity }} places)
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Date de Départ</label>
+              <input 
+                v-model="tripForm.departureDate"
+                type="date" 
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Heure de Départ</label>
+              <input 
+                v-model="tripForm.departureTime"
+                type="time" 
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Places Disponibles</label>
+              <input 
+                v-model.number="tripForm.availableSeats"
+                type="number" 
+                required
+                min="1"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Chauffeur</label>
+              <input 
+                v-model="tripForm.driver"
+                type="text" 
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+          <div class="flex justify-end space-x-3 mt-6">
+            <button 
+              type="button"
+              @click="closeTripModal"
+              class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              {{ editingTrip ? 'Mettre à jour' : 'Créer' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, reactive } from 'vue'
+
+defineOptions({
+  name: 'TripScheduling'
+})
+
+interface Trip {
+  id: number
+  routeId: number
+  busId: number
+  departure: string
+  destination: string
+  busPlate: string
+  departureTime: string
+  totalSeats: number
+  availableSeats: number
+  driver: string
+  status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled'
+}
+
+interface Route {
+  id: number
+  departure: string
+  destination: string
+}
+
+interface Bus {
+  id: number
+  plateNumber: string
+  capacity: number
+  status: string
+}
+
+// Trip statistics
+const tripStats = reactive({
+  todayTrips: 12,
+  weeklyTrips: 68,
+  availableSeats: 285,
+  occupancyRate: 72
+})
+
+// Mock data
+const routes = ref<Route[]>([
+  { id: 1, departure: 'Kinshasa', destination: 'Lubumbashi' },
+  { id: 2, departure: 'Kinshasa', destination: 'Kisangani' },
+  { id: 3, departure: 'Kinshasa', destination: 'Matadi' },
+  { id: 4, departure: 'Lubumbashi', destination: 'Kisangani' }
+])
+
+const buses = ref<Bus[]>([
+  { id: 1, plateNumber: 'CD-123-AB', capacity: 45, status: 'active' },
+  { id: 2, plateNumber: 'CD-456-CD', capacity: 50, status: 'active' },
+  { id: 3, plateNumber: 'CD-789-EF', capacity: 55, status: 'maintenance' },
+  { id: 4, plateNumber: 'CD-012-GH', capacity: 48, status: 'active' }
+])
+
+const trips = ref<Trip[]>([
+  { 
+    id: 1, 
+    routeId: 1, 
+    busId: 1, 
+    departure: 'Kinshasa', 
+    destination: 'Lubumbashi', 
+    busPlate: 'CD-123-AB', 
+    departureTime: '2024-03-15T08:00:00', 
+    totalSeats: 45, 
+    availableSeats: 12, 
+    driver: 'Jean Mutombo', 
+    status: 'scheduled' 
+  },
+  { 
+    id: 2, 
+    routeId: 2, 
+    busId: 2, 
+    departure: 'Kinshasa', 
+    destination: 'Kisangani', 
+    busPlate: 'CD-456-CD', 
+    departureTime: '2024-03-15T10:30:00', 
+    totalSeats: 50, 
+    availableSeats: 25, 
+    driver: 'Pierre Lumumba', 
+    status: 'in_progress' 
+  },
+  { 
+    id: 3, 
+    routeId: 3, 
+    busId: 4, 
+    departure: 'Kinshasa', 
+    destination: 'Matadi', 
+    busPlate: 'CD-012-GH', 
+    departureTime: '2024-03-14T14:00:00', 
+    totalSeats: 48, 
+    availableSeats: 0, 
+    driver: 'Thomas Tshisekedi', 
+    status: 'completed' 
+  },
+  { 
+    id: 4, 
+    routeId: 1, 
+    busId: 1, 
+    departure: 'Kinshasa', 
+    destination: 'Lubumbashi', 
+    busPlate: 'CD-123-AB', 
+    departureTime: '2024-03-16T06:00:00', 
+    totalSeats: 45, 
+    availableSeats: 30, 
+    driver: 'Jean Mutombo', 
+    status: 'scheduled' 
+  }
+])
+
+// Search and filter
+const searchQuery = ref('')
+const statusFilter = ref('')
+
+// Modal state
+const showAddTripModal = ref(false)
+const editingTrip = ref<Trip | null>(null)
+
+// Trip form
+const tripForm = reactive({
+  routeId: 0,
+  busId: 0,
+  departureDate: '',
+  departureTime: '',
+  availableSeats: 0,
+  driver: ''
+})
+
+// Computed properties
+const availableBuses = computed(() => {
+  return buses.value.filter(bus => bus.status === 'active')
+})
+
+const filteredTrips = computed(() => {
+  return trips.value.filter(trip => {
+    const matchesSearch = !searchQuery.value || 
+      trip.departure.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      trip.destination.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      trip.busPlate.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      trip.driver.toLowerCase().includes(searchQuery.value.toLowerCase())
+    
+    const matchesStatus = !statusFilter.value || trip.status === statusFilter.value
+    
+    return matchesSearch && matchesStatus
+  })
+})
+
+// Status helpers
+const getStatusClass = (status: string) => {
+  switch (status) {
+    case 'scheduled':
+      return 'bg-blue-100 text-blue-800'
+    case 'in_progress':
+      return 'bg-yellow-100 text-yellow-800'
+    case 'completed':
+      return 'bg-green-100 text-green-800'
+    case 'cancelled':
+      return 'bg-red-100 text-red-800'
+    default:
+      return 'bg-gray-100 text-gray-800'
+  }
+}
+
+const getStatusLabel = (status: string) => {
+  switch (status) {
+    case 'scheduled':
+      return 'Programmé'
+    case 'in_progress':
+      return 'En cours'
+    case 'completed':
+      return 'Terminé'
+    case 'cancelled':
+      return 'Annulé'
+    default:
+      return status
+  }
+}
+
+// Date formatter
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+}
+
+// CRUD operations
+const editTrip = (trip: Trip) => {
+  editingTrip.value = trip
+  const date = new Date(trip.departureTime)
+  tripForm.routeId = trip.routeId
+  tripForm.busId = trip.busId
+  tripForm.departureDate = date.toISOString().split('T')[0]
+  tripForm.departureTime = date.toTimeString().slice(0, 5)
+  tripForm.availableSeats = trip.availableSeats
+  tripForm.driver = trip.driver
+}
+
+const deleteTrip = (id: number) => {
+  if (confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?')) {
+    trips.value = trips.value.filter(trip => trip.id !== id)
+    updateStats()
+  }
+}
+
+const saveTrip = () => {
+  const selectedRoute = routes.value.find(r => r.id === tripForm.routeId)
+  const selectedBus = buses.value.find(b => b.id === tripForm.busId)
+  
+  if (!selectedRoute || !selectedBus) return
+
+  const departureDateTime = `${tripForm.departureDate}T${tripForm.departureTime}:00`
+
+  if (editingTrip.value) {
+    // Update existing trip
+    const index = trips.value.findIndex(trip => trip.id === editingTrip.value!.id)
+    if (index !== -1) {
+      trips.value[index] = {
+        ...trips.value[index],
+        routeId: tripForm.routeId,
+        busId: tripForm.busId,
+        departure: selectedRoute.departure,
+        destination: selectedRoute.destination,
+        busPlate: selectedBus.plateNumber,
+        departureTime: departureDateTime,
+        totalSeats: selectedBus.capacity,
+        availableSeats: tripForm.availableSeats,
+        driver: tripForm.driver
+      }
+    }
+  } else {
+    // Add new trip
+    const newTrip: Trip = {
+      id: Math.max(...trips.value.map(t => t.id)) + 1,
+      routeId: tripForm.routeId,
+      busId: tripForm.busId,
+      departure: selectedRoute.departure,
+      destination: selectedRoute.destination,
+      busPlate: selectedBus.plateNumber,
+      departureTime: departureDateTime,
+      totalSeats: selectedBus.capacity,
+      availableSeats: tripForm.availableSeats,
+      driver: tripForm.driver,
+      status: 'scheduled'
+    }
+    trips.value.push(newTrip)
+  }
+  
+  updateStats()
+  closeTripModal()
+}
+
+const closeTripModal = () => {
+  showAddTripModal.value = false
+  editingTrip.value = null
+  
+  // Reset form
+  tripForm.routeId = 0
+  tripForm.busId = 0
+  tripForm.departureDate = ''
+  tripForm.departureTime = ''
+  tripForm.availableSeats = 0
+  tripForm.driver = ''
+}
+
+const updateStats = () => {
+  const today = new Date().toISOString().split('T')[0]
+  const todayTrips = trips.value.filter(trip => 
+    trip.departureTime.startsWith(today) && trip.status !== 'cancelled'
+  )
+  
+  const weekStart = new Date()
+  weekStart.setDate(weekStart.getDate() - weekStart.getDay())
+  const weekEnd = new Date(weekStart)
+  weekEnd.setDate(weekEnd.getDate() + 6)
+  
+  const weeklyTrips = trips.value.filter(trip => {
+    const tripDate = new Date(trip.departureTime)
+    return tripDate >= weekStart && tripDate <= weekEnd && trip.status !== 'cancelled'
+  })
+  
+  tripStats.todayTrips = todayTrips.length
+  tripStats.weeklyTrips = weeklyTrips.length
+  tripStats.availableSeats = trips.value
+    .filter(trip => trip.status === 'scheduled' || trip.status === 'in_progress')
+    .reduce((sum, trip) => sum + trip.availableSeats, 0)
+  
+  const totalSeats = trips.value
+    .filter(trip => trip.status !== 'cancelled')
+    .reduce((sum, trip) => sum + trip.totalSeats, 0)
+  
+  const occupiedSeats = totalSeats - tripStats.availableSeats
+  tripStats.occupancyRate = totalSeats > 0 ? Math.round((occupiedSeats / totalSeats) * 100) : 0
+}
+</script>
             <p class="text-xs text-green-600 mt-1">+12% ce mois</p>
           </div>
           <div class="p-3 bg-green-100 rounded-full">

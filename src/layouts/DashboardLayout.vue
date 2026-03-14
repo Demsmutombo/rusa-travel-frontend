@@ -4,7 +4,7 @@
     <div 
       v-show="isMobileMenuOpen" 
       @click="closeMobileMenu"
-      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+      class="fixed inset-0 bg-black bg-opacity-60 z-40 lg:hidden transition-opacity duration-300"
     ></div>
     
     <!-- Sidebar -->
@@ -16,15 +16,17 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col">
       <!-- Header -->
-      <AppHeader 
+      <DashboardHeader 
         :is-mobile-menu-open="isMobileMenuOpen"
         @toggle-mobile-menu="toggleMobileMenu"
         @handle-logout="handleLogout"
       />
 
       <!-- Content -->
-      <main class="flex-1 p-6">
-        <router-view></router-view>
+      <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-auto">
+        <div class="min-w-0">
+          <router-view></router-view>
+        </div>
       </main>
     </div>
   </div>
@@ -35,7 +37,7 @@ import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import AppSidebar from '@/components/common/AppSidebar.vue'
-import AppHeader from '@/components/common/AppHeader.vue'
+import DashboardHeader from '@/components/common/DashboardHeader.vue'
 
 defineOptions({
   name: 'DashboardLayout'

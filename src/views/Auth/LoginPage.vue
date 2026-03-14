@@ -2,228 +2,339 @@
   <div class="min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 flex items-center justify-center">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzR2LTRoLTJ2NGgtNHYyaDR2NGgydi00aDR2LTJoLTR6bTAtMzBWMGgtMnY0aC00djJoNHY0aDJWNmg0VjRoLTR6TTYgMzR2LTRINGg0djBIMHYyaDR2NGgydi00aDR2LTJINHpNNCA0VjBINGg0SDAwdjJoNHY0aDJWNmg0VjRINnoiLz48L2c+PC9nPjwvZz48L3N2Zz4='); background-size: 60px 60px;"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
     </div>
 
-    <!-- Login Container -->
-    <div class="relative z-10 w-full max-w-md mx-4">
+    <!-- Documentation Container -->
+    <div class="relative z-10 w-full max-w-4xl mx-4">
       <!-- Title Section -->
       <div class="text-center mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">
           Rusa Travel
         </h1>
-        <p class="text-blue-100 text-lg">
-          Connectez-vous à votre espace
+        <p class="text-blue-100 text-xl">
+          Plateforme de Transport Complète
         </p>
       </div>
 
-      <!-- Login Form -->
-      <div class="bg-white rounded-2xl shadow-2xl p-8">
-        <form @submit.prevent="handleLogin" class="space-y-6">
-          <!-- Email Field -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                </svg>
-              </div>
-              <input
-                id="email"
-                v-model="loginForm.email"
-                type="email"
-                required
-                class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                placeholder="votre@email.com"
-              />
-            </div>
-          </div>
-
-          <!-- Password Field -->
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-              Mot de passe
-            </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <input
-                id="password"
-                v-model="loginForm.password"
-                :type="showPassword ? 'text' : 'password'"
-                required
-                class="pl-10 pr-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                placeholder="••••••••"
-              />
-              <button
-                type="button"
-                @click="showPassword = !showPassword"
-                class="absolute inset-y-0 right-0 pr-3 flex items-center"
-              >
-                <svg v-if="showPassword" class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                </svg>
-                <svg v-else class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Remember Me & Forgot Password -->
-          <div class="flex items-center justify-between">
-            <label class="flex items-center">
-              <input
-                v-model="loginForm.remember"
-                type="checkbox"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <span class="ml-2 text-sm text-gray-600">Se souvenir de moi</span>
-            </label>
-            <a href="#" class="text-sm text-blue-600 hover:text-blue-500 transition-colors">
-              Mot de passe oublié?
-            </a>
-          </div>
-
-          <!-- Login Button -->
-          <button
-            type="submit"
-            :disabled="isLoading"
-            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <svg v-if="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      <!-- Documentation Card -->
+      <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
-            {{ isLoading ? 'Connexion...' : 'Se connecter' }}
-          </button>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">
+            Documentation de la Plateforme
+          </h2>
+          <p class="text-gray-600">
+            Guide complet pour utiliser Rusa Travel
+          </p>
+        </div>
 
-          <!-- Register Link -->
-          <div class="text-center">
-            <p class="text-sm text-gray-600">
-              Pas encore de compte?
-              <router-link to="/register" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
-                S'inscrire
-              </router-link>
+        <!-- Demo Instructions -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
+          <div class="flex items-center mb-3">
+            <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 class="text-lg font-semibold text-blue-900">Mode Démonstration</h3>
+          </div>
+          <p class="text-blue-800 mb-4">
+            <strong>Utilisez n'importe quel email et mot de passe pour vous connecter.</strong>
+          </p>
+          
+          <!-- Debug Info -->
+          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+            <p class="text-yellow-800 text-sm">
+              <strong>Debug:</strong> showDoc = {{ showDoc }}
             </p>
           </div>
-        </form>
-
-        <!-- Demo Accounts -->
-        <div class="mt-6 pt-6 border-t border-gray-200">
-          <p class="text-xs text-gray-500 text-center mb-3">Comptes de démonstration</p>
-          <div class="space-y-2">
+          
+          <!-- Documentation Button -->
+          <div class="flex justify-center">
             <button
-              @click="fillDemoAccount('admin')"
-              class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded transition-colors"
+              onclick="this.nextElementSibling.nextElementSibling.style.display = this.nextElementSibling.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.nextElementSibling.querySelector('strong').textContent = this.nextElementSibling.nextElementSibling.style.display === 'none' ? 'Debug: showDoc = false' : 'Debug: showDoc = true';"
+              class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 font-medium transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
             >
-              <span class="font-medium">Admin:</span> admin@rusatravel.cd
-            </button>
-            <button
-              @click="fillDemoAccount('manager')"
-              class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded transition-colors"
-            >
-              <span class="font-medium">Manager:</span> manager@rusatravel.cd
-            </button>
-            <button
-              @click="fillDemoAccount('client')"
-              class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded transition-colors"
-            >
-              <span class="font-medium">Client:</span> client@rusatravel.cd
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Voir la Documentation
             </button>
           </div>
+          
+          <!-- Role Examples -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white rounded-lg p-4">
+              <h4 class="font-semibold text-gray-900 mb-2">👤 Rôles Disponibles</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li><strong>Admin</strong> : admin@rusatravel.com</li>
+                <li><strong>Manager</strong> : manager@rusatravel.com</li>
+                <li><strong>Client</strong> : client@rusatravel.com</li>
+                <li><strong>Transporteur</strong> : carrier@rusatravel.com</li>
+                <li><strong>Staff</strong> : staff@rusatravel.com</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-lg p-4">
+              <h4 class="font-semibold text-gray-900 mb-2">🔐 Mot de Passe</h4>
+              <p class="text-sm text-gray-600">
+                Utilisez n'importe quel mot de passe (ex: "demo", "123456", "password")
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform Features -->
+        <div class="mb-8 platform-features">
+          <h3 class="text-xl font-bold text-gray-900 mb-6">🚀 Fonctionnalités de la Plateforme</h3>
+          
+          <!-- Admin Features -->
+          <div class="mb-6">
+            <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
+              <span class="w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center mr-3 text-sm font-bold">A</span>
+              Administration
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 ml-11">
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Gestion des utilisateurs et rôles
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Tableau de bord complet
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Statistiques et rapports
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Gestion système
+              </div>
+            </div>
+          </div>
+
+          <!-- Manager Features -->
+          <div class="mb-6">
+            <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
+              <span class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3 text-sm font-bold">M</span>
+              Management
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 ml-11">
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Gestion des bus et flotte
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Planification des trajets
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Gestion des réservations
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Suivi des passagers
+              </div>
+            </div>
+          </div>
+
+          <!-- Client Features -->
+          <div class="mb-6">
+            <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
+              <span class="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-3 text-sm font-bold">C</span>
+              Espace Client
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 ml-11">
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Recherche de trajets
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Réservation en ligne
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Gestion des billets
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Historique des voyages
+              </div>
+            </div>
+          </div>
+
+          <!-- Carrier Features -->
+          <div>
+            <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
+              <span class="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-3 text-sm font-bold">T</span>
+              Transporteur
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 ml-11">
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Gestion des courses
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Suivi des trajets
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Validation des billets
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Rapports de revenus
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-6 mb-8">
+          <h3 class="text-lg font-semibold text-green-900 mb-3 flex items-center">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Démarrage Rapide
+          </h3>
+          <div class="text-green-800 space-y-2">
+            <p>1. Choisissez votre rôle en utilisant l'email approprié</p>
+            <p>2. Entrez n'importe quel mot de passe</p>
+            <p>3. Cliquez sur "Se connecter"</p>
+            <p>4. Accédez à votre espace personnalisé avec toutes les fonctionnalités</p>
+          </div>
+        </div>
+
+        <!-- Login Button -->
+        <div class="text-center">
+          <button
+            @click="goToLogin"
+            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl flex items-center mx-auto"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+            Accéder à la Connexion
+          </button>
+          <p class="text-sm text-gray-500 mt-3">
+            Ou cliquez sur "Se connecter" en haut de la page
+          </p>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Back to Home -->
-      <div class="text-center mt-6">
-        <router-link
-          to="/"
-          class="text-blue-100 hover:text-white transition-colors inline-flex items-center space-x-2"
+  <!-- Complete Documentation Section -->
+  <div style="display: none;" class="complete-documentation bg-gradient-to-br from-gray-50 to-gray-100 py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Close Button -->
+      <div class="text-right mb-8">
+        <button
+          onclick="this.parentElement.parentElement.parentElement.style.display = 'none'; document.querySelector('.bg-yellow-50 strong').textContent = 'Debug: showDoc = false';"
+          class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center ml-auto"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
-          <span>Retour à l'accueil</span>
-        </router-link>
+          Fermer la Documentation
+        </button>
+      </div>
+      
+      <!-- Simple Test Content -->
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Guide Complet de la Plateforme</h2>
+        <p class="text-xl text-gray-600 mb-6">
+          La documentation s'affiche correctement ! 🎉
+        </p>
+        
+        <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+          <p class="text-green-800">
+            <strong>Succès :</strong> Le bouton "Voir la Documentation" fonctionne parfaitement !
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-blue-50 rounded-lg p-4">
+            <h3 class="font-semibold text-blue-900 mb-2">🚀 Démarrage Rapide</h3>
+            <p class="text-blue-800">Utilisez admin@rusatravel.com pour accéder à l'espace administrateur.</p>
+          </div>
+          <div class="bg-purple-50 rounded-lg p-4">
+            <h3 class="font-semibold text-purple-900 mb-2">👥 Rôles Disponibles</h3>
+            <p class="text-purple-800">Admin, Manager, Client, Transporteur, Staff.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
+<script>
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
 
-defineOptions({
-  name: 'LoginPage'
-})
-
-const router = useRouter()
-const authStore = useAuthStore()
-
-const isLoading = ref(false)
-const showPassword = ref(false)
-
-const loginForm = ref({
-  email: '',
-  password: '',
-  remember: false
-})
-
-const demoAccounts = {
-  admin: { email: 'admin@rusatravel.cd', password: 'admin123', role: 'admin' },
-  manager: { email: 'manager@rusatravel.cd', password: 'manager123', role: 'manager' },
-  client: { email: 'client@rusatravel.cd', password: 'client123', role: 'client' }
-}
-
-const handleLogin = async () => {
-  isLoading.value = true
-  
-  try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    // Check demo accounts
-    const demoAccount = Object.values(demoAccounts).find(
-      account => account.email === loginForm.value.email && account.password === loginForm.value.password
-    )
-    
-    if (demoAccount) {
-      // Set user in auth store using login method
-      authStore.login({
-        id: 1,
-        name: demoAccount.email.split('@')[0],
-        email: demoAccount.email,
-        role: demoAccount.role as any,
-        token: 'demo-token-' + demoAccount.role
-      }, 'demo-token-' + demoAccount.role)
-      
-      // Redirect to dashboard
-      router.push(`/${demoAccount.role}/dashboard`)
-    } else {
-      // Show error message
-      alert('Email ou mot de passe incorrect')
+export default {
+  name: 'LoginPage',
+  setup() {
+    const router = useRouter()
+    return {
+      router
     }
-  } catch (error) {
-    console.error('Login error:', error)
-    alert('Erreur de connexion')
-  } finally {
-    isLoading.value = false
+  },
+  data() {
+    return {
+      showDoc: false
+    }
+  },
+  methods: {
+    goToLogin() {
+      this.router.push('/')
+    },
+    showDocumentation() {
+      this.showDoc = true
+      console.log('Documentation affichée:', this.showDoc)
+    },
+    hideDocumentation() {
+      this.showDoc = false
+      console.log('Documentation masquée:', this.showDoc)
+    }
   }
-}
-
-const fillDemoAccount = (role: keyof typeof demoAccounts) => {
-  const account = demoAccounts[role]
-  loginForm.value.email = account.email
-  loginForm.value.password = account.password
 }
 </script>
