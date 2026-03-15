@@ -21,8 +21,12 @@ export default defineConfig({
         // Exclure temporairement le fichier Settings.vue corrompu
         return id.includes('Settings.vue')
       }
-    }
+    },
+    // Optimisation pour Vercel
+    chunkSizeWarningLimit: 1000,
+    assetsDir: 'assets'
   },
-  // S'assurer que les fichiers publics sont copiés dans dist
-  publicDir: 'public'
+  // Configuration spécifique pour Vercel
+  publicDir: 'public',
+  base: './'
 })
