@@ -22,11 +22,9 @@ export default defineConfig({
         return id.includes('Settings.vue')
       }
     },
-    // Optimisation pour Vercel
-    chunkSizeWarningLimit: 1000,
+    outDir: 'dist',
     assetsDir: 'assets'
   },
-  // Configuration spécifique pour Vercel
   publicDir: 'public',
-  base: './'
+  base: '/'
 })
