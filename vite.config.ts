@@ -22,5 +22,7 @@ export default defineConfig({
         return id.includes('Settings.vue')
       }
     }
-  }
+  },
+  // S'assurer que les fichiers publics sont copiés dans dist
+  publicDir: 'public'
 })
